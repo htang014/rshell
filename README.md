@@ -9,5 +9,5 @@ This is a basic command shell for CS100, written in C++.  It accepts and is able
 
 ## Known Bugs
 [INCOMPLETE]
-
+* Space after '$' prompt is sometimes deletable.  Causes unexpected behavior.
 
