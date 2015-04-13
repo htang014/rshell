@@ -1,5 +1,11 @@
 #include <stdio.h>
+#include <vector>
+#include <string>
+#include <iostream>
+#include <sstream>
+#include <stdio.h>
 #include <string.h>
+#include <algorithm>
 using namespace std;
 
 /*void doExec(char* cmd){
@@ -23,32 +29,40 @@ using namespace std;
 	}
 }*/
 
-void str_parse(){
-	
+char* convert(const string& str){
+	char* p = new char[str.size()+1];
+	strcpy(p,str.c_str());
+	return p;
+}
 
+vector<char*> str_parse(string str){
+	string arg;
+	vector<string> argList;
+	vector<char*> argListC;
+	istringstream inSS(arg);
+
+	while(!inSS.eof()){
+		inSS >> str;
+		argList.push_back(arg);
+	}
+	
+	transform(argList.begin(), argList.end(), back_inserter(argListC), convert);
+
+	return argListC;
 }
 
 
 int main () {
+	string cmd;
+
+	while (true){
+		cout << "$ ";
+		getline(cin, cmd);
 		
-	char a;
+		//check for exit command
+		if (cmd == "exit") exit(0);
 
-	printf("$ ");
-
-	while (a != EOF) {
-		char temp[100];
-		a = getchar();
-
-		if (a == '\n') {
-			str_parse();
-			printf(temp);
-			printf("\n");
-			printf("$ ");
-		}
-		else {
-			strncat(temp, &a, 1);	
-		}
-		
+		str_parse(cmd);	
 	}
 		
 	return 0;
