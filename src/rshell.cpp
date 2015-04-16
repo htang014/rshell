@@ -11,8 +11,18 @@
 #include <sys/wait.h>
 using namespace std;
 
-void doExec(vector<char*> instr){
+void commentOut (string& s){
+	size_t found = s.find('#');
+	if (found != string::npos){
+		s.erase(s.begin()+found, s.end());
+	}
+}
+
+
+//------------------------------------------------------------
+int doExec(vector<char*> instr){
 	int pid = fork();
+	int childStat;
 
 	if (pid == -1){
 		perror("There was an error with fork()");
@@ -25,33 +35,59 @@ void doExec(vector<char*> instr){
 		}
 	}
 	else {
-		if (-1 == wait(0)){
+		int waitPid = 0;
+
+		if (-1 == waitpid(waitPid, &childStat, 0)){
 			perror("There was an error with wait()");
-			exit(1);
 		}
+
+		childStat = WEXITSTATUS(childStat);
 	}
+	return childStat;
 }
+//------------------------------------------------------------
 
-void commentOut (string& s){
-	size_t found = s.find('#');
-	if (found != string::npos){
-		s.erase(s.begin()+found, s.end());
+
+void doLogic (vector<char*> a){
+	vector<char*> cmd = a;
+	vector<char*> segment;
+	int i = 0;
+
+	char OR[3] = "||";
+	char AND[3] = "&&";
+	char END[2] = ";";
+
+	while (cmd.size() > 1){
+		if (strcmp(cmd.at(0),OR) == 0){
+			int status = doExec(segment);
+			segment.clear();
+			if (status != -1) return;	
+		}
+		else if (strcmp(cmd.at(0), AND) == 0){
+			int status = doExec(segment);
+			segment.clear();
+			if (status != 0) return;
+		}
+		else if (strcmp(cmd.at(0), END) == 0){
+			doExec(segment);
+			segment.clear();
+		}
+		else {
+			segment.push_back(cmd.at(0));
+		}
+		cmd.erase(cmd.begin());
 	}
-	cout << s << endl;
+	doExec(segment);
 }
-
-vector<vector<char*> > doLogic (vector<char*> instr){
-	vector<vector<char*> > t;
-
-	return t;
-}
+//------------------------------------------------------------
 
 char* convert(const string& str){
 	char* p = new char[str.size()+1];
 	strcpy(p,str.c_str());
 	return p;
 }
-
+//------------------------------------------------------------
+//parse the user input into char* array
 vector<char*> str_parse(string str){
 	string arg;
 	vector<string> argList;
@@ -71,6 +107,7 @@ vector<char*> str_parse(string str){
 	return argListC;
 }
 
+//------------------------------------------------------------
 
 int main () {
 	string cmd;
@@ -90,7 +127,7 @@ int main () {
 
 		vector<char*> v = str_parse(cmd);
 	
-		doExec(str_parse(cmd));	
+		doLogic(str_parse(cmd));	
 	}
 
 	return 0;
