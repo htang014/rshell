@@ -31,6 +31,20 @@ void doExec(vector<char*> instr){
 	}
 }
 
+void commentOut (string& s){
+	size_t found = s.find('#');
+	if (found != string::npos){
+		s.erase(s.begin()+found, s.end());
+	}
+	cout << s << endl;
+}
+
+vector<vector<char*> > doLogic (vector<char*> instr){
+	vector<vector<char*> > t;
+
+	return t;
+}
+
 char* convert(const string& str){
 	char* p = new char[str.size()+1];
 	strcpy(p,str.c_str());
@@ -64,6 +78,12 @@ int main () {
 		cout << "$ ";
 		getline(cin, cmd);
 		
+		commentOut(cmd);
+		
+		//resolve space after command scenario
+		if (cmd.at(cmd.size() - 1) == ' ') 
+			cmd.erase(cmd.begin() + cmd.size() - 1 );
+
 		//check for exit command
 		if (cmd == "exit") exit(0);
 
