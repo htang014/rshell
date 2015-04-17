@@ -1,7 +1,9 @@
 CFLAGS = -ansi -pedantic -Wall -Werror
 
-all:
-	g++ $(CFLAGS) src\main.cpp
+all: rshell
+	g++ $(CFLAGS) src/rshell.cpp -o bin/rshell
+	
 
 rshell:
-	g++ $(CFLAGS) src\main.cpp
+	mkdir -p bin
+	g++ $(CFLAGS) src/rshell.cpp -o bin/rshell
