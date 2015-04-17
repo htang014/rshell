@@ -12,8 +12,41 @@ $ bin/rshell
 
 ```
 
-## Features/Vital Info
-[INCOMPLETE]
+## Features/Usage
+Rshell is a bash-like command shell.  A command prompt ($ ) means the program is awaiting input.  You may execute any command stored in bin/ or /bin/ with supported flags.
+
+**Storing commands:**
+
+Store any user-defined command file in the bin/ folder created upon installation.
+
+
+
+**To execute a command:**
+
+When the program displays "$ ", type in commands and press ENTER.
+
+
+
+**Using logic connectors:**
+
+In order to use a connector, simply type one between two command executions. For instance:
+```
+$ cmd1 ; cmd2 || cmd3 && cmd4
+```
+
+NOTE: Logic operations are interpreted and performed left to right.
+
+* && - Execute the command to the right of this if and only if the command to the left executed correctly.
+
+* || - Execute the command to the right of this if and only if the command to the left DID NOT execute correctly.
+
+* ; - Execute the command the the right of this after executing the command to the left.
+
+## Code Summary
+
+###rshell.cpp
+
+Contains the shell program and all related feature sets.  This file may be broken up in the future to allow for more efficient debugging.
 
 ## Known Bugs
 [INCOMPLETE]
