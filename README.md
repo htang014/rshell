@@ -27,7 +27,7 @@ Store any user-defined command file in the bin/ folder created upon installation
 
 ###To execute a command:
 
-When the program displays "$ ", type in commands and press ENTER.
+When the program displays "$ ", type in commands and press ENTER.  Any excess whitespace before or after arguments is ignored.
 
 
 
@@ -38,7 +38,7 @@ In order to use a connector, simply type one between two command executions. For
 $ cmd1 ; cmd2 || cmd3 && cmd4
 ```
 
-NOTE: Logic operations are interpreted and performed left to right.
+NOTE: Logic operations are interpreted and performed left to right. Empty commands are treated as successful.
 
 * **&&** - Execute the command to the right of this if and only if the command to the left executed correctly.
 
@@ -48,8 +48,7 @@ NOTE: Logic operations are interpreted and performed left to right.
 
 ## Possible Errors
 * There was a problem with execvp(): File or directory not found
-																		 
-Caused by an incorrect or invalid command.
+	Caused by an incorrect or invalid command.
 
 ## Code Summary
 
@@ -61,3 +60,4 @@ Contains the shell program and all related feature sets.  This file may be broke
 * Space after '$' prompt is sometimes deletable.  Causes unexpected behavior.
 * Cursor can move up and down inside shell.  Doing so will mess up commands.
 * The bash command "cd" is not implemented and therefore does not work currently.
+* Bash commands run in this shell will not be contained within the shell and can potentially affect the bash process.  For instance, "clear" will clear the entire screen, including text originating in bash.  This might be worked around by explicitly defining the command in bin/.
