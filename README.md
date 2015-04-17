@@ -47,8 +47,9 @@ NOTE: Logic operations are interpreted and performed left to right.
 * **;** - Execute the command the the right of this after executing the command to the left.
 
 ## Possible Errors
-1. There was a problem with execvp(): File or directory not found
-	*Caused by an incorrect or invalid command.
+* There was a problem with execvp(): File or directory not found
+																		 
+Caused by an incorrect or invalid command.
 
 ## Code Summary
 
