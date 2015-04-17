@@ -46,6 +46,12 @@ NOTE: Logic operations are interpreted and performed left to right. Empty comman
 
 * **;** - Execute the command the the right of this after executing the command to the left.
 
+###Adding comments:
+
+```
+$ cmd -l # Everything after the '#' is a comment.
+```
+
 ## Possible Errors
 * There was a problem with execvp(): File or directory not found
 	Caused by an incorrect or invalid command.
