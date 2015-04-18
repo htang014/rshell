@@ -17,7 +17,7 @@ $ bin/rshell
 ```
 
 ## Features/Usage
-Rshell is a bash-like command shell.  A command prompt ($ ) means the program is awaiting input.  You may execute any command stored in bin/ or /bin/ with supported flags.
+Rshell is a bash-like command shell.  A command prompt ($ ) means the program is awaiting input.  You may execute any command stored in the $PATH varable along with supported flags.
 
 ###Storing commands:
 
