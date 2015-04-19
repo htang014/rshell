@@ -67,4 +67,4 @@ Contains the shell program and all related feature sets.  This file may be broke
 * Exit command does not take flags
 * Cursor can move up and down inside shell.  Doing so will mess up commands.
 * The bash command "cd" is not implemented and therefore does not work currently.
-* Bash commands run in this shell will not be contained within the shell and can potentially affect the bash process.  For instance, "clear" will clear the entire screen, including text originating in bash.  This might be worked around by explicitly defining the command in bin/.
+* Bash commands run in this shell will not be contained within the shell and can potentially affect the bash process.  For instance, "clear" will clear the entire screen, including text originating in bash.
