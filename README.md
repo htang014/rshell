@@ -48,6 +48,11 @@ NOTE: Logic operations are interpreted and performed left to right. Empty comman
 $ cmd -l # Everything after the '#' is a comment.
 ```
 
+###Quitting:
+```
+$ exit
+```
+
 ## Possible Errors
 * There was a problem with execvp(): File or directory not found ---- Caused by an incorrect or invalid command.
 
@@ -59,6 +64,7 @@ Contains the shell program and all related feature sets.  This file may be broke
 
 ## Known Bugs
 * Space after '$' prompt is sometimes deletable.  Causes unexpected behavior.
+* Exit command does not take flags
 * Cursor can move up and down inside shell.  Doing so will mess up commands.
 * The bash command "cd" is not implemented and therefore does not work currently.
 * Bash commands run in this shell will not be contained within the shell and can potentially affect the bash process.  For instance, "clear" will clear the entire screen, including text originating in bash.  This might be worked around by explicitly defining the command in bin/.

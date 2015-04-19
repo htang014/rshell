@@ -2,22 +2,22 @@ Script started on Sun 19 Apr 2015 02:27:47 AM PDT
 ~
 htang014@hammer $ cd rshell
 ~/rshell
-htang014@hammer $ make
+htang014@hammer $ make    #Testing for proper compilation
 mkdir -p bin
 g++ -ansi -pedantic -Wall -Werror src/rshell.cpp -o bin/rshell
 g++ -ansi -pedantic -Wall -Werror src/rshell.cpp -o bin/rshell
 ~/rshell
 htang014@hammer $ bin/rshell
 /class/classes/htang014/rshell
-htang014@hammer $ ls
+htang014@hammer $ ls			#Testing command execution
 bin  LICENSE  Makefile	README.md  src	tests
 
 /class/classes/htang014/rshell
-htang014@hammer $ ls -a
+htang014@hammer $ ls -a			#Testing command with flag
 .  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
 
 /class/classes/htang014/rshell
-htang014@hammer $ ls -a -l
+htang014@hammer $ ls -a -l			#Testing command with multiple flags
 total 36
 drwx------  6 htang014 classes 4096 Apr 19 02:17 .
 drwx------ 23 htang014 classes 4096 Apr 19 02:17 ..
@@ -30,11 +30,11 @@ drwx------  2 htang014 classes 4096 Apr 19 02:14 src
 drwx------  2 htang014 classes 4096 Apr 19 02:22 tests
 
 /class/classes/htang014/rshell
-htang014@hammer $ ls blah
+htang014@hammer $ ls blah			#Testing command with nonexistant flag
 ls: cannot access blah: No such file or directory
 
 /class/classes/htang014/rshell
-htang014@hammer $ ls -blah
+htang014@hammer $ ls -blah			#A different nonexistant flag, executes -la flag and ignores -b, -h
 total 36K
 drwx------  6 htang014 classes 4.0K Apr 19 02:17 .
 drwx------ 23 htang014 classes 4.0K Apr 19 02:17 ..
@@ -47,7 +47,7 @@ drwx------  2 htang014 classes 4.0K Apr 19 02:14 src
 drwx------  2 htang014 classes 4.0K Apr 19 02:22 tests
 
 /class/classes/htang014/rshell
-htang014@hammer $ ls -a -l   #this is a comment
+htang014@hammer $ ls -a -l   #this is a comment			#Testing comments
 total 36
 drwx------  6 htang014 classes 4096 Apr 19 02:17 .
 drwx------ 23 htang014 classes 4096 Apr 19 02:17 ..
@@ -60,33 +60,33 @@ drwx------  2 htang014 classes 4096 Apr 19 02:14 src
 drwx------  2 htang014 classes 4096 Apr 19 02:22 tests
 
 /class/classes/htang014/rshell
-htang014@hammer $ ls -a -l      #this is also a comment
+htang014@hammer $ ls -a -l      #this is also a comment			#Testing comment with no space
 bin  LICENSE  Makefile	README.md  src	tests
 
 /class/classes/htang014/rshell
-htang014@hammer $ ls #another comment                    another comment
+htang014@hammer $ ls #another comment     #More comments spacing arrangements
 bin  LICENSE  Makefile	README.md  src	tests
 
 /class/classes/htang014/rshell
-htang014@hammer $ ls                     -a
+htang014@hammer $ ls                     -a			#Testing command and flag with multiple whitespace
 .  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
 
 /class/classes/htang014/rshell
-htang014@hammer $ ls && pwd
+htang014@hammer $ ls && pwd			#Testing && connector
 bin  LICENSE  Makefile	README.md  src	tests
 /class/classes/htang014/rshell
 
 /class/classes/htang014/rshell
-htang014@hammer $ ls || pwd
+htang014@hammer $ ls || pwd			#Testing || connector
 bin  LICENSE  Makefile	README.md  src	tests
 
 /class/classes/htang014/rshell
-htang014@hammer $ ls ; pwd
+htang014@hammer $ ls ; pwd			#Testing ; connector
 bin  LICENSE  Makefile	README.md  src	tests
 /class/classes/htang014/rshell
 
 /class/classes/htang014/rshell
-htang014@hammer $ ls     && ps || pwd
+htang014@hammer $ ls && ps || pwd			#Testing chained connectors. Operations are left to right
 bin  LICENSE  Makefile	README.md  src	tests
   PID TTY          TIME CMD
 32147 pts/22   00:00:00 bash
@@ -94,7 +94,7 @@ bin  LICENSE  Makefile	README.md  src	tests
 32402 pts/22   00:00:00 ps
 
 /class/classes/htang014/rshell
-htang014@hammer $ ls && pwd && ps &&  ;; ls ;       ls ; ls ;    pwd ; frigg     blah    blah || ls && ls && foo ; bar
+htang014@hammer $ ls && pwd && ps && ;; ls ; ls ; ls ; pwd ; frigg ; blah || ls && ls && foo ; bar			#A lot of chaining
 bin  LICENSE  Makefile	README.md  src	tests
 /class/classes/htang014/rshell
   PID TTY          TIME CMD
@@ -106,18 +106,18 @@ bin  LICENSE  Makefile	README.md  src	tests
 There was an error with execvp(): No such file or directory
 
 /class/classes/htang014/rshell
-htang014@hammer $ exit    foo
+htang014@hammer $ exit foo			#exit command does not take arguments properly
 There was an error with execvp(): No such file or directory
 
 /class/classes/htang014/rshell
-htang014@hammer $ cd
+htang014@hammer $ cd			#cd does not work
 There was an error with execvp(): No such file or directory
 
 /class/classes/htang014/rshell
-htang014@hammer $ clear
+htang014@hammer $ clear			#clear clears entire screen
 [H[2J
 /class/classes/htang014/rshell
-htang014@hammer $ exit
+htang014@hammer $ exit			#exit without args executes correctly
 ~/rshell
 htang014@hammer $ exit
 exit
