@@ -1,5 +1,5 @@
 # rshell Command Shell
-This is a basic command shell for CS100, written in C++.  It accepts and is able to execute user-defined commands using execvp().
+This is a basic command shell for CS100, written in C++.  It accepts and is able to run executables stored in the locations specified by $PATH, typically /usr/bin and /bin, using execvp().
 
 ## Installation
 In bash, perform the following:
