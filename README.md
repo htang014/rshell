@@ -1,4 +1,4 @@
-# rshell Command Shell [WIP]
+# rshell Command Shell
 This is a basic command shell for CS100, written in C++.  It accepts and is able to execute user-defined commands using execvp().
 
 ## Installation
@@ -49,8 +49,7 @@ $ cmd -l # Everything after the '#' is a comment.
 ```
 
 ## Possible Errors
-* There was a problem with execvp(): File or directory not found
-	Caused by an incorrect or invalid command.
+* There was a problem with execvp(): File or directory not found ---- Caused by an incorrect or invalid command.
 
 ## Code Summary
 
