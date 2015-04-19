@@ -24,6 +24,8 @@ int doExec(vector<char*> instr){
 	int pid = fork();
 	int childStat;
 
+	instr.push_back(NULL);
+
 	if (pid == -1){
 		perror("There was an error with fork()");
 		exit(1);
@@ -51,7 +53,6 @@ int doExec(vector<char*> instr){
 void doLogic (vector<char*> a){
 	vector<char*> cmd = a;
 	vector<char*> segment;
-	int i = 0;
 
 	char OR[3] = "||";
 	char AND[3] = "&&";
@@ -111,9 +112,21 @@ vector<char*> str_parse(string str){
 
 int main () {
 	string cmd;
+	char name[25];
+
+	gethostname(name,sizeof name);
+
+	for (int i = 0; i < 25; i++){
+		if ( name[i] == '.'){ 
+			name[i] = '\0';
+			break;
+		}
+
+	}
 
 	while (true){
-		cout << "$ ";
+		cout << get_current_dir_name() << endl;
+		cout << getlogin() << '@' << name  << " $ ";
 		getline(cin, cmd);
 		
 		commentOut(cmd);
@@ -128,6 +141,8 @@ int main () {
 		vector<char*> v = str_parse(cmd);
 	
 		doLogic(str_parse(cmd));	
+
+		cout << endl;
 	}
 
 	return 0;
