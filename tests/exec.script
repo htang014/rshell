@@ -1,0 +1,666 @@
+Script started on Sun 19 Apr 2015 01:56:04 AM PDT
+~
+htang014@well $ cd rshell
+~/rshell
+htang014@well $ make
+mkdir -p bin
+g++ -ansi -pedantic -Wall -Werror src/rshell.cpp -o bin/rshell
+g++ -ansi -pedantic -Wall -Werror src/rshell.cpp -o bin/rshell
+~/rshell
+htang014@well $ bin/rshell
+/class/classes/htang014/rshell
+htang014@well $ ls
+bin  LICENSE  Makefile	README.md  src	tests
+/class/classes/htang014/rshell
+htang014@well $ ls && pwd
+bin  LICENSE  Makefile	README.md  src	tests
+/class/classes/htang014/rshell
+/class/classes/htang014/rshell
+htang014@well $ ls && pwd ||           ||pwd    pwd
+bin  LICENSE  Makefile	README.md  src	tests
+/class/classes/htang014/rshell
+htang014@well $ ls ; pwd
+bin  LICENSE  Makefile	README.md  src	tests
+/class/classes/htang014/rshell
+/class/classes/htang014/rshell
+htang014@well $ ls && pwd ||      ps || pwd
+bin  LICENSE  Makefile	README.md  src	tests
+  PID TTY          TIME CMD
+23842 pts/8    00:00:00 bash
+23863 pts/8    00:00:00 rshell
+23883 pts/8    00:00:00 ps
+/class/classes/htang014/rshell
+htang014@well $ exit
+~/rshell
+htang014@well $ bin/rshell[6Pmakecd rshell[5Pexit[2Plsexitcd rshell[5Pexit[2Plsexitcd rshell[5Pmakebin/rshell[Kvim src/rshell.cpp
+7[?47h[?1h=[1;37r[m[H[2J[37;1H"src/rshell.cpp" "src/rshell.cpp" 148L, 2883C[>c[1;1H[34m//------------------------------------------------------------[m
+
+[32mint[m main () {
+  string cmd;
+  [32mchar[m name[[31m25[m];
+
+  gethostname(name,[33msizeof[m name);
+
+  [33mfor[m ([32mint[m i = [31m0[m; i < [31m25[m; i++){
+    [33mif[m ( name[i] == [31m'.'[m){[11;7Hname[i] = [35m'\0'[m;[12;7H[33mbreak[m;
+    }
+
+  }
+
+  [33mwhile[m ([31mtrue[m){
+    cout << get_current_dir_name() << endl;
+    cout << getlogin() << [31m'@'[m << name  << [31m" $ "[m;
+    getline(cin, cmd);[22;5HcommentOut(cmd);[24;5H[34m//resolve space after command scenario[m
+    [33mif[m (cmd.at(cmd.size() - [31m1[m) == [31m' '[m)[26;7Hcmd.erase(cmd.begin() + cmd.size() - [31m1[m );[28;5H[34m//check for exit command[m
+    [33mif[m (cmd == [31m"exit"[m) exit([31m0[m);[31;5Hvector<[32mchar[m*> v = str_parse(cmd);[33;5HdoLogic(str_parse(cmd));
+  }
+
+  [33mreturn[m [31m0[m;[37;63H128,3-5       98%[18;5HP+q436f\P+q6b75\P+q6b64\P+q6b72\P+q6b6c\P+q2332\P+q2334\P+q2569\P+q2a37\P+q6b31\[37;63H127,4-5       98%[17;5H[37;63H126,0-1       98%[16;1H[9;31H[46m{[15;3H}[m[37;63H125,2-3       98%[15;3H[9;31H{[15;3H}[37;63H124,0-1       98%[14;1H[10;25H[46m{[13;5H}[m[37;63H123,3-5       98%[13;5H[10;25H{[13;5H}[37;63H122,3-6       98%[12;6H[37;63H121,3-6       98%[11;6H[37;63H120,3-5       98%[10;5H[37;63H119,4-5       98%[9;5H[37;63H118,0-1       98%[8;1H[37;63H117,4-5       98%[7;5H[37;63H116,0-1       98%[6;1H[37;63H115,4-5       98%[5;5H[37;63H114,4-5       98%[4;5H[37;63H113,5         98%[3;5H[37;63H112,0-1       98%[2;1H[37;63H111,5         98%[1;5H[1;36r[1;1H[L[1;37r[37;1H[K[37;63H110,0-1       97%[1;1H[1;36r[1;1H[L[1;37r[1;1H}[37;63H[K[37;63H109,1         96%[1;1H[1;36r[1;1H[L[1;37r[1;3H[33mreturn[m argListC;[37;63H[K[37;63H108,4-5       95%[1;5H[1;36r[1;1H[L[1;37r[37;63H[K[37;63H107,0-1       94%[1;1H[1;36r[1;1H[L[1;37r[1;3HargListC.push_back([31mNULL[m);[37;63H[K[37;63H106,4-5       93%[1;5H[37;63H107,0-1       93%[2;1H[37;63H108,4-5       93%[3;5H[37;63H109,1         93%[4;1H[37;63H110,0-1       93%[5;1H[37;63H111,5         93%[6;5H[37;63H112,0-1       93%[7;1H[37;63H113,5         93%[8;5H[37;63H114,4-5       93%[9;5H[37;63H115,4-5       93%[10;5H[37;63H116,0-1       93%[11;1H[37;63H117,4-5       93%[12;5H[37;63H118,0-1       93%[13;1H[37;63H119,4-5       93%[14;5H[37;63H120,3-5       93%[15;5H[37;63H121,3-6       93%[16;6H[37;63H120,3-5       93%[15;5H[37;63H119,4-5       93%[14;5H[37;63H118,0-1       93%[13;1H[37;63H117,4-5       93%[12;5H[37;63H116,0-1       93%[11;1H[37;63H117,4-5       93%[12;5H[37;63H118,0-1       93%[13;1H[37;63H119,4-5       93%[14;5H[37;63H120,3-5       93%[15;5H[37;63H121,3-6       93%[16;6H[37;63H122,3-6       93%[17;6H[15;25H[46m{[18;5H}[m[37;63H123,3-5       93%[18;5H[15;25H{[18;5H}[37;63H124,0-1       93%[19;1H[14;31H[46m{[20;3H}[m[37;63H125,2-3       93%[20;3H[14;31H{[20;3H}[37;63H126,0-1       93%[21;1H[37;63H127,4-5       93%[22;5H[37;63H128,3-5       93%[23;5H[37;63H129,3-5       93%[24;5H[37;63H128,3-5       93%[23;5H[37;63H128,4-6       93%[23;6H[37;63H128,5-7       93%[23;7H[37;63H128,6-8       93%[23;8H[37;63H128,7-9       93%[23;9H[37;63H128,8-10      93%[23;10H[37;63H128,9-11      93%[23;11H[37;63H128,10-12     93%[23;12H[37;63H128,11-13     93%[23;13H[37;63H128,10-12     93%[23;12H[37;63H128,11-13     93%[23;13H[37;63H128,30-32     93%[23;32H[37;1H/wdaw[37;63H[K[37;1H[31msearch hit BOTTOM, continuing at TOP[m[1m[37m[41mE486: Pattern not found: wdaw[m[37;30H[K[37;63H128,30-32     93%[23;32H[46m()[m << endl;[23;43H[K[23;32H[37;63H128,31-33     93%[23;33H[37;63H128,30-32     93%[23;32H()[37;63H128,29-31     93%[23;31H[37;63H128,28-30     93%[23;30H[37;63H128,27-29     93%[23;29H[37;63H128,26-28     93%[23;28H[37;63H128,25-27     93%[23;27H[37;63H128,24-26     93%[23;26H[37;63H128,23-25     93%[23;25H[37;63H128,22-24     93%[23;24H[37;63H128,21-23     93%[23;23H[37;63H128,20-22     93%[23;22H[37;63H128,19-21     93%[23;21H[37;63H128,18-20     93%[23;20H[37;63H128,17-19     93%[23;19H[37;63H128,16-18     93%[23;18H[37;63H128,15-17     93%[23;17H[37;63H128,16-18     93%[23;18H[37;63H128,17-19     93%[23;19H[37;63H128,18-20     93%[23;20H[37;63H128,19-21     93%[23;21H[37;63H128,20-22     93%[23;22H[37;63H128,21-23     93%[23;23H[37;63H128,22-24     93%[23;24H[37;63H128,23-25     93%[23;25H[37;63H128,24-26     93%[23;26H[37;63H128,25-27     93%[23;27H[37;63H128,26-28     93%[23;28H[37;63H128,27-29     93%[23;29H[37;63H128,28-30     93%[23;30H[37;63H128,29-31     93%[23;31Hm[46m()[m[37;63H128,30-32     93%[23;32H[37;1H1 change; before #1  10 seconds ago[37;63H[K[23;32He() << endl;[37;63H128,30-32     93%[23;32H[37;63H128,29-31     93%[23;31H[37;63H128,28-30     93%[23;30H[37;63H128,27-29     93%[23;29H[37;63H128,26-28     93%[23;28H[37;63H128,25-27     93%[23;27H[37;63H128,24-26     93%[23;26H[37;63H128,23-25     93%[23;25H[37;63H128,22-24     93%[23;24H[37;63H128,21-23     93%[23;23H[37;63H128,20-22     93%[23;22H[37;63H128,19-21     93%[23;21H[37;63H128,18-20     93%[23;20H[37;63H128,17-19     93%[23;19H[37;63H128,16-18     93%[23;18H[37;63H128,15-17     93%[23;17H[37;63H128,14-16     93%[23;16H[37;63H128,13-15     93%[23;15H[37;63H128,12-14     93%[23;14H[37;63H128,11-13     93%[23;13H[37;63H128,10-12     93%[23;12H[37;63H128,9-11      93%[23;11H[37;63H128,10-12     93%[23;12H[37;1H[1m-- INSERT --[m[37;13H[K[37;63H128,10-12     93%[23;12H  get_current_dir_name() << endl;[37;63H128,11-13     93%[23;13He get_current_dir_name() << endl;[37;63H128,12-14     93%[23;14Hn get_current_dir_name() << endl;[37;63H128,13-15     93%[23;15Hd get_current_dir_name() << endl;[37;63H128,14-16     93%[23;16Hl get_current_dir_name() << endl;[37;63H128,15-17     93%[23;17H  get_current_dir_name() << endl;[37;63H128,16-18     93%[23;18H< get_current_dir_name() << endl;[37;63H128,17-19     93%[23;19H< get_current_dir_name() << endl;[37;63H128,18-20     93%[23;20H  get_current_dir_name() << endl;[37;63H128,19-21     93%[23;21H[37;1H[K[23;20H[37;63H128,18-20     93%[23;20H[37;63H[K[37;1H:w:wq:wq"src/rshell.cpp" "src/rshell.cpp" 148L, 2892C written
+[?1l>[2J[?47l8~/rshell
+htang014@well $ vim src/rshell.cpp[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[8Pbin/rshell[6Pmake
+mkdir -p bin
+g++ -ansi -pedantic -Wall -Werror src/rshell.cpp -o bin/rshell
+g++ -ansi -pedantic -Wall -Werror src/rshell.cpp -o bin/rshell
+~/rshell
+htang014@well $ makevim src/rshell.cpp[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[8Pbin/rshell
+
+/class/classes/htang014/rshell
+htang014@well $ clear
+[H[2J
+/class/classes/htang014/rshell
+htang014@well $ waht now
+There was an error with execvp(): No such file or directory
+
+/class/classes/htang014/rshell
+htang014@well $ ls
+bin  LICENSE  Makefile	README.md  src	tests
+
+/class/classes/htang014/rshell
+htang014@well $ clear
+[H[2J
+/class/classes/htang014/rshell
+htang014@well $ exit
+~/rshell
+htang014@well $ bin/rshell[6Pmakevim src/rshell.cpp
+7[?47h[?1h=[1;37r[m[H[2J[37;1H"src/rshell.cpp" "src/rshell.cpp" 148L, 2892C[>c[1;1H[34m//------------------------------------------------------------[m
+
+[32mint[m main () {
+  string cmd;
+  [32mchar[m name[[31m25[m];
+
+  gethostname(name,[33msizeof[m name);
+
+  [33mfor[m ([32mint[m i = [31m0[m; i < [31m25[m; i++){
+    [33mif[m ( name[i] == [31m'.'[m){[11;7Hname[i] = [35m'\0'[m;[12;7H[33mbreak[m;
+    }
+
+  }
+
+  [33mwhile[m ([31mtrue[m){
+    cout << endl <<  get_current_dir_name() << endl;
+    cout << getlogin() << [31m'@'[m << name  << [31m" $ "[m;
+    getline(cin, cmd);[22;5HcommentOut(cmd);[24;5H[34m//resolve space after command scenario[m
+    [33mif[m (cmd.at(cmd.size() - [31m1[m) == [31m' '[m)[26;7Hcmd.erase(cmd.begin() + cmd.size() - [31m1[m );[28;5H[34m//check for exit command[m
+    [33mif[m (cmd == [31m"exit"[m) exit([31m0[m);[31;5Hvector<[32mchar[m*> v = str_parse(cmd);[33;5HdoLogic(str_parse(cmd));
+  }
+
+  [33mreturn[m [31m0[m;[37;63H128,3-5       98%[18;5HP+q436f\P+q6b75\P+q6b64\P+q6b72\P+q6b6c\P+q2332\P+q2334\P+q2569\P+q2a37\P+q6b31\[37;63H127,4-5       98%[17;5H[37;63H128,3-5       98%[18;5H[37;63H129,3-5       98%[19;5H[37;63H128,3-5       98%[18;5H[37;63H128,4-6       98%[18;6H[37;63H128,5-7       98%[18;7H[37;63H128,6-8       98%[18;8H[37;63H128,7-9       98%[18;9H[37;63H128,8-10      98%[18;10H[37;63H128,9-11      98%[18;11H[37;63H128,10-12     98%[18;12H[37;63H128,11-13     98%[18;13H[37;63H128,12-14     98%[18;14H[37;63H128,13-15     98%[18;15H[37;63H128,14-16     98%[18;16H[37;63H128,15-17     98%[18;17H[37;63H128,16-18     98%[18;18H[37;63H128,17-19     98%[18;19H[37;63H128,18-20     98%[18;20H[37;63H128,19-21     98%[18;21H[37;63H128,18-20     98%[18;20H[37;1H[1m-- INSERT --[m[37;13H[K[37;63H128,18-20     98%[18;19H  get_current_dir_name() << endl;[18;52H[K[37;63H128,17-19     98%[18;19H  get_current_dir_name() << endl;[18;51H[K[37;63H128,16-18     98%[18;18H get_current_dir_name() << endl;[18;50H[K[37;63H128,15-17     98%[18;17H  get_current_dir_name() << endl;[18;49H[K[37;63H128,14-16     98%[18;16H  get_current_dir_name() << endl;[18;48H[K[37;63H128,13-15     98%[18;15H  get_current_dir_name() << endl;[18;47H[K[37;63H128,12-14     98%[18;14H  get_current_dir_name() << endl;[18;46H[K[37;63H128,11-13     98%[18;13H get_current_dir_name() << endl;[18;45H[K[37;63H128,10-12     98%[18;12H[37;63H128,11-13     98%[18;13Hget_current_dir_name() << endl;[18;44H[K[37;63H128,10-12     98%[18;12H[37;63H129,10-12     98%[19;12H[20;12H[46m([8C)[m[37;63H130,10-12     98%[20;12H([8C)[37;63H131,3-5       98%[21;5H[37;63H132,10-12     98%[22;12H[37;63H133,3-5       98%[23;5H[37;63H134,10-12     98%[24;12H[37;63H135,10-12     98%[25;12H[37;63H136,9-12      98%[26;12H[37;63H137,1         98%[27;1H[37;63H138,10-12     98%[28;12H[37;63H139,10-12     98%[29;12H[37;63H140,1         98%[30;1H[37;63H141,10-12     98%[31;12H[37;63H142,2-3       98%[32;3H[33;12H[46m([14C)[m[37;63H143,10-12     98%[33;12H[17;15H[46m{[m[33;12H([14C)
+  [46m}[m[37;63H144,3-4       98%[34;4H[17;15H{[34;3H}[37;63H145,1         98%[35;1H[37;63H146,11-12     98%[36;12H[1;36r[36;1H
+[1;37r[37;1H[1m-- INSERT --[m[37;63H[K[37;63H147,1         99%[36;1H[1;36r[36;1H
+[1;37r[1;13H[46m{[36;1H}[m
+[1m-- INSERT --[m[37;63H[K[37;63H148,2         Bot[36;2H[1;13H{[36;1H}[37;63H147,1         Bot[35;1H[37;63H146,11-12     Bot[34;12H[37;63H145,1         Bot[33;1H[15;15H[46m{[32;3H}[m[37;63H144,3-4       Bot[32;4H[15;15H{[31;12H[46m([14C)[m
+  }[37;63H143,10-12     Bot[31;12H[15;15H[46m{[m[31;12H([14C)
+  [46m}[m[37;63H144,3-4       Bot[32;4H[15;15H{[31;12H[46m([14C)[m
+  }[37;63H143,10-12     Bot[31;12H[37;63H143,11-13     Bot[31;13H([14C)[37;63H143,12-14     Bot[31;14H[37;63H143,13-15     Bot[31;15H[37;63H143,14-16     Bot[31;16H[37;63H143,15-17     Bot[31;17H[37;63H143,16-18     Bot[31;18H[37;63H143,17-19     Bot[31;19H[37;63H143,18-20     Bot[31;20H[37;63H143,19-21     Bot[31;21He[46m([mcmd[46m)[m[37;63H143,20-22     Bot[31;22H[37;63H143,21-23     Bot[31;23H(cmd)[37;63H143,22-24     Bot[31;24H[37;63H143,23-25     Bot[31;25H[46m([mcmd[46m)[m[37;63H143,24-26     Bot[31;26H[31;12H[46m([m[9C(cmd)[46m)[m[37;63H143,25-27     Bot[31;27H[37;63H143,26-28     Bot[31;28H[31;12H([14C)[37;63H143,27-29     Bot[31;29H[37;63H143,28-31     Bot[31;31H[32;36r[32;1H[L[1;37r[37;1H[1m-- INSERT --[m[37;63H[K[37;63H144,3-5       99%[32;5H[33;36r[33;1H[L[1;37r[37;1H[1m-- INSERT --[m[37;63H[K[37;63H145,3-5       98%[33;5Hc[37;63H145,4-6       98%[33;6Ho[37;63H145,5-7       98%[33;7Hu[37;63H145,6-8       98%[33;8Ht[37;63H145,7-9       98%[33;9H[37;63H145,8-10      98%[33;10H<[37;63H145,9-11      98%[33;11H<[37;63H145,10-12     98%[33;12H[37;63H145,11-13     98%[33;13He[37;63H145,12-14     98%[33;14Hn[37;63H145,13-15     98%[33;15Hd[37;63H145,14-16     98%[33;16Hl[37;63H145,15-17     98%[33;17H[37;63H145,16-18     98%[33;18H[37;63H145,15-17     98%[33;17H;[37;63H145,16-18     98%[33;18H[37;1H[K[33;17H[37;63H145,15-17     98%[33;17H[37;63H[K[37;1H:w:wq:wq"src/rshell.cpp" "src/rshell.cpp" 150L, 2900C written
+[?1l>[2J[?47l8~/rshell
+htang014@well $ vim src/rshell.cpp[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[8Pbin/rshell[6Pmake
+mkdir -p bin
+g++ -ansi -pedantic -Wall -Werror src/rshell.cpp -o bin/rshell
+g++ -ansi -pedantic -Wall -Werror src/rshell.cpp -o bin/rshell
+~/rshell
+htang014@well $ makevim src/rshell.cpp[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[8Pbin/rshellvim src/rshell.cpp[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[8Pbin/rshell
+/class/classes/htang014/rshell
+htang014@well $ wha   clear
+[H[2J
+/class/classes/htang014/rshell
+htang014@well $ clear
+[H[2J
+/class/classes/htang014/rshell
+htang014@well $ when
+There was an error with execvp(): No such file or directory
+
+/class/classes/htang014/rshell
+htang014@well $ ls
+bin  LICENSE  Makefile	README.md  src	tests
+
+/class/classes/htang014/rshell
+htang014@well $ clear
+[H[2J
+/class/classes/htang014/rshell
+htang014@well $ exit
+~/rshell
+htang014@well $ clear
+[H[2J~/rshell
+htang014@well $ script tests/exec.script
+Script started, file is tests/exec.script
+~
+htang014@well $ cd rshell
+~/rshell
+htang014@well $ make
+mkdir -p bin
+g++ -ansi -pedantic -Wall -Werror src/rshell.cpp -o bin/rshell
+g++ -ansi -pedantic -Wall -Werror src/rshell.cpp -o bin/rshell
+~/rshell
+htang014@well $ bin/rshell
+/class/classes/htang014/rshell
+htang014@well $ ls
+bin  LICENSE  Makefile	README.md  src	tests
+
+/class/classes/htang014/rshell
+htang014@well $ ls && pwd
+bin  LICENSE  Makefile	README.md  src	tests
+/class/classes/htang014/rshell
+
+/class/classes/htang014/rshell
+htang014@well $ ls || pwd
+bin  LICENSE  Makefile	README.md  src	tests
+
+/class/classes/htang014/rshell
+htang014@well $ ls &&    ; pwd
+bin  LICENSE  Makefile	README.md  src	tests
+/class/classes/htang014/rshell
+
+/class/classes/htang014/rshell
+htang014@well $ lsqwerty ; pwd
+There was an error with execvp(): No such file or directory
+/class/classes/htang014/rshell
+
+/class/classes/htang014/rshell
+htang014@well $ ls && ps || pwd
+bin  LICENSE  Makefile	README.md  src	tests
+  PID TTY          TIME CMD
+24002 pts/13   00:00:00 bash
+24028 pts/13   00:00:00 rshell
+24046 pts/13   00:00:00 ps
+
+/class/classes/htang014/rshell
+htang014@well $ ls -a
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+
+/class/classes/htang014/rshell
+htang014@well $ ls -a -l
+total 36
+drwx------  6 htang014 classes 4096 Apr 17 22:33 .
+drwx------ 23 htang014 classes 4096 Apr 19 02:00 ..
+drwx------  2 htang014 classes 4096 Apr 19 02:01 bin
+drwx------  8 htang014 classes 4096 Apr 17 22:32 .git
+-rw-------  1 htang014 classes 1076 Apr 13 13:33 LICENSE
+-rw-------  1 htang014 classes  165 Apr 17 00:41 Makefile
+-rw-------  1 htang014 classes 2293 Apr 17 22:33 README.md
+drwx------  2 htang014 classes 4096 Apr 19 02:00 src
+drwx------  2 htang014 classes 4096 Apr 19 01:54 tests
+
+/class/classes/htang014/rshell
+htang014@well $ ls -qwer
+ls: invalid line width: er
+
+/class/classes/htang014/rshell
+htang014@well $ ls -az
+ls: invalid option -- z
+Try `ls --help' for more information.
+
+/class/classes/htang014/rshell
+htang014@well $ ls -a #T   #  #THIA I   S IS A COMMENT
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+
+/class/classes/htang014/rshell
+htang014@well $ ls -a#This     HIS ISALSO       ALSO A COMMENT
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+
+/class/classes/htang014/rshell
+htang014@well $ ls -a # ANOTHER COMMENT
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+
+/class/classes/htang014/rshell
+htang014@well $ lsfake
+There was an error with execvp(): No such file or directory
+
+/class/classes/htang014/rshell
+htang014@well $ cd src
+There was an error with execvp(): No such file or directory
+
+/class/classes/htang014/rshell
+htang014@well $ clear
+[H[2J
+/class/classes/htang014/rshell
+htang014@well $ ls -a && pwd && ps && ls-  -l ||  ;          ; ls -l || pwd && ps && ls && ls && ls
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+/class/classes/htang014/rshell
+  PID TTY          TIME CMD
+24002 pts/13   00:00:00 bash
+24028 pts/13   00:00:00 rshell
+24144 pts/13   00:00:00 ps
+total 24
+drwx------ 2 htang014 classes 4096 Apr 19 02:01 bin
+-rw------- 1 htang014 classes 1076 Apr 13 13:33 LICENSE
+-rw------- 1 htang014 classes  165 Apr 17 00:41 Makefile
+-rw------- 1 htang014 classes 2293 Apr 17 22:33 README.md
+drwx------ 2 htang014 classes 4096 Apr 19 02:00 src
+drwx------ 2 htang014 classes 4096 Apr 19 01:54 tests
+
+/class/classes/htang014/rshell
+htang014@well $ exit
+~/rshell
+htang014@well $ exit
+exit
+Script done, file is tests/exec.script
+~/rshell
+htang014@well $ cat test/exee[Kc.script
+cat: test/exec.script: No such file or directory
+~/rshell
+htang014@well $ cat test/exec.scripts/exec.script
+Script started on Sun 19 Apr 2015 02:01:24 AM PDT
+~
+htang014@well $ cd rshell
+~/rshell
+htang014@well $ make
+mkdir -p bin
+g++ -ansi -pedantic -Wall -Werror src/rshell.cpp -o bin/rshell
+g++ -ansi -pedantic -Wall -Werror src/rshell.cpp -o bin/rshell
+~/rshell
+htang014@well $ bin/rshell
+/class/classes/htang014/rshell
+htang014@well $ ls
+bin  LICENSE  Makefile	README.md  src	tests
+
+/class/classes/htang014/rshell
+htang014@well $ ls && pwd
+bin  LICENSE  Makefile	README.md  src	tests
+/class/classes/htang014/rshell
+
+/class/classes/htang014/rshell
+htang014@well $ ls || pwd
+bin  LICENSE  Makefile	README.md  src	tests
+
+/class/classes/htang014/rshell
+htang014@well $ ls &&    ; pwd
+bin  LICENSE  Makefile	README.md  src	tests
+/class/classes/htang014/rshell
+
+/class/classes/htang014/rshell
+htang014@well $ lsqwerty ; pwd
+There was an error with execvp(): No such file or directory
+/class/classes/htang014/rshell
+
+/class/classes/htang014/rshell
+htang014@well $ ls && ps || pwd
+bin  LICENSE  Makefile	README.md  src	tests
+  PID TTY          TIME CMD
+24002 pts/13   00:00:00 bash
+24028 pts/13   00:00:00 rshell
+24046 pts/13   00:00:00 ps
+
+/class/classes/htang014/rshell
+htang014@well $ ls -a
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+
+/class/classes/htang014/rshell
+htang014@well $ ls -a -l
+total 36
+drwx------  6 htang014 classes 4096 Apr 17 22:33 .
+drwx------ 23 htang014 classes 4096 Apr 19 02:00 ..
+drwx------  2 htang014 classes 4096 Apr 19 02:01 bin
+drwx------  8 htang014 classes 4096 Apr 17 22:32 .git
+-rw-------  1 htang014 classes 1076 Apr 13 13:33 LICENSE
+-rw-------  1 htang014 classes  165 Apr 17 00:41 Makefile
+-rw-------  1 htang014 classes 2293 Apr 17 22:33 README.md
+drwx------  2 htang014 classes 4096 Apr 19 02:00 src
+drwx------  2 htang014 classes 4096 Apr 19 01:54 tests
+
+/class/classes/htang014/rshell
+htang014@well $ ls -qwer
+ls: invalid line width: er
+
+/class/classes/htang014/rshell
+htang014@well $ ls -az
+ls: invalid option -- z
+Try `ls --help' for more information.
+
+/class/classes/htang014/rshell
+htang014@well $ ls -a #T   #  #THIA I   S IS A COMMENT
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+
+/class/classes/htang014/rshell
+htang014@well $ ls -a#This     HIS ISALSO       ALSO A COMMENT
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+
+/class/classes/htang014/rshell
+htang014@well $ ls -a # ANOTHER COMMENT
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+
+/class/classes/htang014/rshell
+htang014@well $ lsfake
+There was an error with execvp(): No such file or directory
+
+/class/classes/htang014/rshell
+htang014@well $ cd src
+There was an error with execvp(): No such file or directory
+
+/class/classes/htang014/rshell
+htang014@well $ clear
+[H[2J
+/class/classes/htang014/rshell
+htang014@well $ ls -a && pwd && ps && ls-  -l ||  ;          ; ls -l || pwd && ps && ls && ls && ls
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+/class/classes/htang014/rshell
+  PID TTY          TIME CMD
+24002 pts/13   00:00:00 bash
+24028 pts/13   00:00:00 rshell
+24144 pts/13   00:00:00 ps
+total 24
+drwx------ 2 htang014 classes 4096 Apr 19 02:01 bin
+-rw------- 1 htang014 classes 1076 Apr 13 13:33 LICENSE
+-rw------- 1 htang014 classes  165 Apr 17 00:41 Makefile
+-rw------- 1 htang014 classes 2293 Apr 17 22:33 README.md
+drwx------ 2 htang014 classes 4096 Apr 19 02:00 src
+drwx------ 2 htang014 classes 4096 Apr 19 01:54 tests
+
+/class/classes/htang014/rshell
+htang014@well $ exit
+~/rshell
+htang014@well $ exit
+exit
+
+Script done on Sun 19 Apr 2015 02:09:39 AM PDT
+~/rshell
+htang014@well $ cat tests/exec.script[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Kcat tests/exec.script
+Script started on Sun 19 Apr 2015 02:01:24 AM PDT
+~
+htang014@well $ cd rshell
+~/rshell
+htang014@well $ make
+mkdir -p bin
+g++ -ansi -pedantic -Wall -Werror src/rshell.cpp -o bin/rshell
+g++ -ansi -pedantic -Wall -Werror src/rshell.cpp -o bin/rshell
+~/rshell
+htang014@well $ bin/rshell
+/class/classes/htang014/rshell
+htang014@well $ ls
+bin  LICENSE  Makefile	README.md  src	tests
+
+/class/classes/htang014/rshell
+htang014@well $ ls && pwd
+bin  LICENSE  Makefile	README.md  src	tests
+/class/classes/htang014/rshell
+
+/class/classes/htang014/rshell
+htang014@well $ ls || pwd
+bin  LICENSE  Makefile	README.md  src	tests
+
+/class/classes/htang014/rshell
+htang014@well $ ls &&    ; pwd
+bin  LICENSE  Makefile	README.md  src	tests
+/class/classes/htang014/rshell
+
+/class/classes/htang014/rshell
+htang014@well $ lsqwerty ; pwd
+There was an error with execvp(): No such file or directory
+/class/classes/htang014/rshell
+
+/class/classes/htang014/rshell
+htang014@well $ ls && ps || pwd
+bin  LICENSE  Makefile	README.md  src	tests
+  PID TTY          TIME CMD
+24002 pts/13   00:00:00 bash
+24028 pts/13   00:00:00 rshell
+24046 pts/13   00:00:00 ps
+
+/class/classes/htang014/rshell
+htang014@well $ ls -a
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+
+/class/classes/htang014/rshell
+htang014@well $ ls -a -l
+total 36
+drwx------  6 htang014 classes 4096 Apr 17 22:33 .
+drwx------ 23 htang014 classes 4096 Apr 19 02:00 ..
+drwx------  2 htang014 classes 4096 Apr 19 02:01 bin
+drwx------  8 htang014 classes 4096 Apr 17 22:32 .git
+-rw-------  1 htang014 classes 1076 Apr 13 13:33 LICENSE
+-rw-------  1 htang014 classes  165 Apr 17 00:41 Makefile
+-rw-------  1 htang014 classes 2293 Apr 17 22:33 README.md
+drwx------  2 htang014 classes 4096 Apr 19 02:00 src
+drwx------  2 htang014 classes 4096 Apr 19 01:54 tests
+
+/class/classes/htang014/rshell
+htang014@well $ ls -qwer
+ls: invalid line width: er
+
+/class/classes/htang014/rshell
+htang014@well $ ls -az
+ls: invalid option -- z
+Try `ls --help' for more information.
+
+/class/classes/htang014/rshell
+htang014@well $ ls -a #T   #  #THIA I   S IS A COMMENT
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+
+/class/classes/htang014/rshell
+htang014@well $ ls -a#This     HIS ISALSO       ALSO A COMMENT
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+
+/class/classes/htang014/rshell
+htang014@well $ ls -a # ANOTHER COMMENT
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+
+/class/classes/htang014/rshell
+htang014@well $ lsfake
+There was an error with execvp(): No such file or directory
+
+/class/classes/htang014/rshell
+htang014@well $ cd src
+There was an error with execvp(): No such file or directory
+
+/class/classes/htang014/rshell
+htang014@well $ clear
+[H[2J
+/class/classes/htang014/rshell
+htang014@well $ ls -a && pwd && ps && ls-  -l ||  ;          ; ls -l || pwd && ps && ls && ls && ls
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+/class/classes/htang014/rshell
+  PID TTY          TIME CMD
+24002 pts/13   00:00:00 bash
+24028 pts/13   00:00:00 rshell
+24144 pts/13   00:00:00 ps
+total 24
+drwx------ 2 htang014 classes 4096 Apr 19 02:01 bin
+-rw------- 1 htang014 classes 1076 Apr 13 13:33 LICENSE
+-rw------- 1 htang014 classes  165 Apr 17 00:41 Makefile
+-rw------- 1 htang014 classes 2293 Apr 17 22:33 README.md
+drwx------ 2 htang014 classes 4096 Apr 19 02:00 src
+drwx------ 2 htang014 classes 4096 Apr 19 01:54 tests
+
+/class/classes/htang014/rshell
+htang014@well $ exit
+~/rshell
+htang014@well $ exit
+exit
+
+Script done on Sun 19 Apr 2015 02:09:39 AM PDT
+~/rshell
+htang014@well $ cat tests/exec.script
+Script started on Sun 19 Apr 2015 02:01:24 AM PDT
+~
+htang014@well $ cd rshell
+~/rshell
+htang014@well $ make
+mkdir -p bin
+g++ -ansi -pedantic -Wall -Werror src/rshell.cpp -o bin/rshell
+g++ -ansi -pedantic -Wall -Werror src/rshell.cpp -o bin/rshell
+~/rshell
+htang014@well $ bin/rshell
+/class/classes/htang014/rshell
+htang014@well $ ls
+bin  LICENSE  Makefile	README.md  src	tests
+
+/class/classes/htang014/rshell
+htang014@well $ ls && pwd
+bin  LICENSE  Makefile	README.md  src	tests
+/class/classes/htang014/rshell
+
+/class/classes/htang014/rshell
+htang014@well $ ls || pwd
+bin  LICENSE  Makefile	README.md  src	tests
+
+/class/classes/htang014/rshell
+htang014@well $ ls &&    ; pwd
+bin  LICENSE  Makefile	README.md  src	tests
+/class/classes/htang014/rshell
+
+/class/classes/htang014/rshell
+htang014@well $ lsqwerty ; pwd
+There was an error with execvp(): No such file or directory
+/class/classes/htang014/rshell
+
+/class/classes/htang014/rshell
+htang014@well $ ls && ps || pwd
+bin  LICENSE  Makefile	README.md  src	tests
+  PID TTY          TIME CMD
+24002 pts/13   00:00:00 bash
+24028 pts/13   00:00:00 rshell
+24046 pts/13   00:00:00 ps
+
+/class/classes/htang014/rshell
+htang014@well $ ls -a
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+
+/class/classes/htang014/rshell
+htang014@well $ ls -a -l
+total 36
+drwx------  6 htang014 classes 4096 Apr 17 22:33 .
+drwx------ 23 htang014 classes 4096 Apr 19 02:00 ..
+drwx------  2 htang014 classes 4096 Apr 19 02:01 bin
+drwx------  8 htang014 classes 4096 Apr 17 22:32 .git
+-rw-------  1 htang014 classes 1076 Apr 13 13:33 LICENSE
+-rw-------  1 htang014 classes  165 Apr 17 00:41 Makefile
+-rw-------  1 htang014 classes 2293 Apr 17 22:33 README.md
+drwx------  2 htang014 classes 4096 Apr 19 02:00 src
+drwx------  2 htang014 classes 4096 Apr 19 01:54 tests
+
+/class/classes/htang014/rshell
+htang014@well $ ls -qwer
+ls: invalid line width: er
+
+/class/classes/htang014/rshell
+htang014@well $ ls -az
+ls: invalid option -- z
+Try `ls --help' for more information.
+
+/class/classes/htang014/rshell
+htang014@well $ ls -a #T   #  #THIA I   S IS A COMMENT
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+
+/class/classes/htang014/rshell
+htang014@well $ ls -a#This     HIS ISALSO       ALSO A COMMENT
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+
+/class/classes/htang014/rshell
+htang014@well $ ls -a # ANOTHER COMMENT
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+
+/class/classes/htang014/rshell
+htang014@well $ lsfake
+There was an error with execvp(): No such file or directory
+
+/class/classes/htang014/rshell
+htang014@well $ cd src
+There was an error with execvp(): No such file or directory
+
+/class/classes/htang014/rshell
+htang014@well $ clear
+[H[2J
+/class/classes/htang014/rshell
+htang014@well $ ls -a && pwd && ps && ls-  -l ||  ;          ; ls -l || pwd && ps && ls && ls && ls
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+/class/classes/htang014/rshell
+  PID TTY          TIME CMD
+24002 pts/13   00:00:00 bash
+24028 pts/13   00:00:00 rshell
+24144 pts/13   00:00:00 ps
+total 24
+drwx------ 2 htang014 classes 4096 Apr 19 02:01 bin
+-rw------- 1 htang014 classes 1076 Apr 13 13:33 LICENSE
+-rw------- 1 htang014 classes  165 Apr 17 00:41 Makefile
+-rw------- 1 htang014 classes 2293 Apr 17 22:33 README.md
+drwx------ 2 htang014 classes 4096 Apr 19 02:00 src
+drwx------ 2 htang014 classes 4096 Apr 19 01:54 tests
+
+/class/classes/htang014/rshell
+htang014@well $ exit
+~/rshell
+htang014@well $ exit
+exit
+
+Script done on Sun 19 Apr 2015 02:09:39 AM PDT
+~/rshell
+htang014@well $ clear
+[H[2J~/rshell
+htang014@well $ ls
+[00m[00;34mbin[00m/  [00mLICENSE[00m  [00mMakefile[00m  [00mREADME.md[00m  [00;34msrc[00m/  [00;34mtests[00m/
+[m~/rshell
+htang014@well $ cd tew[Ksts
+~/rshell/tests
+htang014@well $ ls
+[00m[00mexec.script[00m
+[m~/rshell/tests
+htang014@well $ cat exec.script
+Script started on Sun 19 Apr 2015 02:01:24 AM PDT
+~
+htang014@well $ cd rshell
+~/rshell
+htang014@well $ make
+mkdir -p bin
+g++ -ansi -pedantic -Wall -Werror src/rshell.cpp -o bin/rshell
+g++ -ansi -pedantic -Wall -Werror src/rshell.cpp -o bin/rshell
+~/rshell
+htang014@well $ bin/rshell
+/class/classes/htang014/rshell
+htang014@well $ ls
+bin  LICENSE  Makefile	README.md  src	tests
+
+/class/classes/htang014/rshell
+htang014@well $ ls && pwd
+bin  LICENSE  Makefile	README.md  src	tests
+/class/classes/htang014/rshell
+
+/class/classes/htang014/rshell
+htang014@well $ ls || pwd
+bin  LICENSE  Makefile	README.md  src	tests
+
+/class/classes/htang014/rshell
+htang014@well $ ls &&    ; pwd
+bin  LICENSE  Makefile	README.md  src	tests
+/class/classes/htang014/rshell
+
+/class/classes/htang014/rshell
+htang014@well $ lsqwerty ; pwd
+There was an error with execvp(): No such file or directory
+/class/classes/htang014/rshell
+
+/class/classes/htang014/rshell
+htang014@well $ ls && ps || pwd
+bin  LICENSE  Makefile	README.md  src	tests
+  PID TTY          TIME CMD
+24002 pts/13   00:00:00 bash
+24028 pts/13   00:00:00 rshell
+24046 pts/13   00:00:00 ps
+
+/class/classes/htang014/rshell
+htang014@well $ ls -a
+.  ..  bin  .git  LICENSE  Makefile  README.md	src  tests
+
+/class/classes/htang014/rshell
+htang014@well $ ls -a -l
+total 36
+drwx------  6 htang014 classes 4096 Apr 17 22:33 .
+drwx------ 23 htang
