@@ -34,7 +34,7 @@ In order to use a connector, simply type one between two command executions. For
 $ cmd1 ; cmd2 || cmd3 && cmd4
 ```
 
-NOTE: Logic operations are interpreted and performed left to right. Empty commands are treated as successful.
+NOTE: Logic operations are interpreted and performed left to right. Empty commands are treated as successful.  Connectors MUST be separated from each command by spaces.
 
 * **&&** - Execute the command to the right of this if and only if the command to the left executed correctly.
 
