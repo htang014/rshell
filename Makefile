@@ -1,6 +1,6 @@
 CFLAGS = -ansi -pedantic -Wall -Werror
 
-all: rshell cp
+all: rshell cp ls
 	g++ $(CFLAGS) src/rshell.cpp -o bin/rshell
 	
 
@@ -9,4 +9,7 @@ rshell:
 	g++ $(CFLAGS) src/rshell.cpp -o bin/rshell
 
 cp:
-	g++ $(CFLAGS) src/cp.cpp -o bin/cp
+#g++ $(CFLAGS) src/cp.cpp -o bin/cp
+
+ls:
+	g++ $(CFLAGS) src/ls.cpp -o bin/ls -Wno-write-strings
