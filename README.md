@@ -19,7 +19,10 @@ $ bin/rshell
 ## Features/Usage
 Rshell is a bash-like command shell.  A display showing the current working directory, followed by a command prompt ($ ) means the program is awaiting input.  You may execute any command stored in the $PATH variable along with supported flags.
 
-**ls** - Recently implemented!  type `bin\ls` to use.
+* **ls** - Recently implemented!  Type `bin\ls` to use. Accepts the following options:
+	* **-l** - prints files in long-listed format
+	* **-R** - recursively performs ls through all folders and subfolders
+	* **-a** - displays hidden files
 
 
 
