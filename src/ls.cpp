@@ -41,15 +41,16 @@ struct permissions {
 	
 };
 
-bool charCompare(const char * c1, const char * c2){
-	return strcasecmp(c1, c2) < 0;
+bool charCompare(const string c1, const string c2){
+	return strcasecmp(c1.c_str(), c2.c_str()) < 0;
 }
 
 //FLAGS
-void not_a_flag (vector<char*> & files){
+//EXECUTES IF -a IS NOT PRESENT
+void not_a_flag (vector<string> & files){
 		
-	for (vector<char*>::iterator i = files.begin(); i != files.end();){
-		char c = **i;
+	for (vector<string>::iterator i = files.begin(); i != files.end();){
+		char c = i->at(0);
 
 		if (c == '.')
 			files.erase(i);
@@ -59,15 +60,29 @@ void not_a_flag (vector<char*> & files){
 
 }
 
-void l_flag (vector<char*> & files, char & whitespace) {
+//EXECUTES IF -l IS PRESENT
+void l_flag (vector<string> & files, char & whitespace, string dir) {
 	whitespace = '\n';
-	vector<char*> filesCopy = files;
+	vector<string> filesCopy = files;
 	files.clear();
 
-	for (vector<char*>::iterator i = filesCopy.begin(); i != filesCopy.end(); ++i) {
+	struct stat buf0;
+	string s0 = dir;
+
+	const char* path0 = s0.c_str();
+	if (-1 == stat (path0, &buf0)) {
+		perror("There was a problem with stat()");
+		exit(1);
+	}
+
+	cout << "total " << buf0.st_size << endl; 
+
+	
+	for (vector<string>::iterator i = filesCopy.begin(); i != filesCopy.end(); ++i) {
 
 		struct stat buf;
-		string s = "./";
+		string s = dir;
+		s.append("/");
 		s.append(*i);
 
 
@@ -91,9 +106,21 @@ void l_flag (vector<char*> & files, char & whitespace) {
 			exit(1);
 		}
 
+		cout << "tot " << buf.st_size << endl;
 
+
+		//SETTING PERMISSIONS STRING
 		permissions p;
-		cout << buf.st_ino << endl;
+
+		//SET SPECIAL FILE TYPE
+		if (S_ISDIR(buf.st_mode)) p.TYP = "d";
+		if (S_ISBLK(buf.st_mode)) p.TYP = "b";
+		if (S_ISCHR(buf.st_mode)) p.TYP = "c";
+		if (S_ISFIFO(buf.st_mode)) p.TYP = "p";
+		if (S_ISLNK(buf.st_mode)) p.TYP = "l";
+		if (S_ISSOCK(buf.st_mode)) p.TYP = "s";
+
+		//SET RWX PERMISSIONS
 		if (buf.st_mode & S_IRUSR) p.O_R = "r";
 		if (buf.st_mode & S_IWUSR) p.O_W = "w";
 		if (buf.st_mode & S_IXUSR) p.O_X = "x";
@@ -104,29 +131,29 @@ void l_flag (vector<char*> & files, char & whitespace) {
 		if (buf.st_mode & S_IWOTH) p.A_W = "w";
 		if (buf.st_mode & S_IXOTH) p.A_X = "x";
 
-		char* permlist = (char*)malloc(255);
+		//ADD TO STRING
+		string permlist = p.TYP;
+		permlist.append(p.O_R);
+		permlist.append(p.O_W);
+		permlist.append(p.O_X);
+		permlist.append(p.G_R);
+		permlist.append(p.G_W);
+		permlist.append(p.G_X);
+		permlist.append(p.A_R);
+		permlist.append(p.A_W);
+		permlist.append(p.A_X);
 
-		strcpy(permlist, p.TYP);
-		strcat(permlist, p.O_R);
-		strcat(permlist, p.O_W);
-		strcat(permlist, p.O_X);
-		strcat(permlist, p.G_R);
-		strcat(permlist, p.G_W);
-		strcat(permlist, p.G_X);
-		strcat(permlist, p.A_R);
-		strcat(permlist, p.A_W);
-		strcat(permlist, p.A_X);
+		ostringstream oss;
+		oss << buf.st_nlink;
+		string linkNum = oss.str();
 
-		char* userCopy = (char*)malloc(strlen(ownerInfo->pw_name) + 1); 
-		strcpy(userCopy, ownerInfo->pw_name);
+		string userCopy = ownerInfo->pw_name; 
 
-		char* grpCopy = (char*)malloc(strlen(groupInfo->gr_name) + 1);
-		strcpy(grpCopy, groupInfo->gr_name);
+		string grpCopy = groupInfo->gr_name;
 
 		stringstream strs;
 		strs << buf.st_size;
 		string fsize = strs.str();
-		char* fsizeC = (char*) fsize.c_str();
 
 		struct tm * tm;
 		char datetime[200];
@@ -136,20 +163,23 @@ void l_flag (vector<char*> & files, char & whitespace) {
 
 		files.push_back(permlist);
 
-		strcat(files.back(), "\t");
-		strcat(files.back(), userCopy);
+		files.back().append( "\t");
+		files.back().append( linkNum);
 
-		strcat(files.back(), "\t");
-		strcat(files.back(), grpCopy);
+		files.back().append( "\t");
+		files.back().append( userCopy);
 
-		strcat(files.back(), "\t");
-		strcat(files.back(), fsizeC);
+		files.back().append( "\t");
+		files.back().append( grpCopy);
 
-		strcat(files.back(), "\t");
-		strcat(files.back(), datetime);
+		files.back().append( "\t");
+		files.back().append( fsize);
 
-		strcat(files.back(), "\t");
-		strcat(files.back(), *i);
+		files.back().append( "\t");
+		files.back().append( datetime);
+
+		files.back().append( "\t");
+		files.back().append( *i);
 
 
 
@@ -157,20 +187,14 @@ void l_flag (vector<char*> & files, char & whitespace) {
 
 }
 
-
-
-//MAIN
-int main(int argc, char* argv[]){
-	bool a = 0, l = 0, R = 0;
-	if (R); //temporary
+//DOES EVERYTHING; CAPABLE OF RECURSION
+void pull_and_print(string dir, bool a, bool l, bool R){
+	
 	char whitespace = ' ';
-
-
-	vector<char*> filenames;
-
+	vector<string> filenames;
 
 	DIR* dirp;
-	if (NULL == (dirp = opendir(".")) ){
+	if (NULL == (dirp = opendir(dir.c_str())) ){
 		perror("There was an error with opendir()");
 		exit(1);
 	}
@@ -178,34 +202,26 @@ int main(int argc, char* argv[]){
 	struct dirent *filespecs;
 	errno = 0;
 	while(NULL != (filespecs = readdir(dirp))){
-		filenames.push_back(filespecs->d_name);
+		string dName = filespecs->d_name;
+		filenames.push_back(dName);
 	}
 	if (errno != 0){
 		perror("There was an error with readdir()");
 		exit(1);
 	}
 
-	//FIND FLAGS ATTACHED TO EXECUTION
-	for (int i = 1; i < argc; i++) {
-		if (*argv[i] == '-'){
-			if (strchr(argv[i], 'a') != NULL) a = 1;
-			if (strchr(argv[i], 'l') != NULL) l = 1;
-			if (strchr(argv[i], 'R') != NULL) R = 1;
-		}
-
-	}
-
 	//CONDITIONAL ADJUSTMENTS
 	if (!a) not_a_flag(filenames); //no -a
 
-
-	sort(filenames.begin(), filenames.end(), charCompare);
+	sort(filenames.begin(), filenames.end(), charCompare); //sort alphabetically
 	
-	if (l) l_flag(filenames, whitespace);
+	vector<string> filesCopy = filenames;
+	if (l) l_flag(filenames, whitespace, dir);
 
+	if (R) cout << dir << ':' << endl;
 
 	//PRINTING CONTENTS OF FILENAME VECTOR
-	for (vector<char*>::iterator it = filenames.begin();
+	for (vector<string>::iterator it = filenames.begin();
 	it != filenames.end(); ++it){
 		cout << *it << whitespace;
 	}
@@ -217,6 +233,63 @@ int main(int argc, char* argv[]){
 		exit(1);
 	}
 
+	//PERFORM RECURSION IF -R
+	if (R) {
+
+		cout << endl;	
+
+		for (vector<string>::iterator i = filesCopy.begin(); i != filesCopy.end(); ++i) {
+			string new_dir = dir;
+
+			if (*i != "." && *i != ".." && *i != ""){
+
+				new_dir.append("/");
+				new_dir.append(*i);
+				struct stat buf;
+
+				if (-1 == stat (new_dir.c_str(), &buf)) {
+					perror("There was a problem with stat()");
+					exit(1);
+				}
+
+				if (S_ISDIR(buf.st_mode)) {
+					pull_and_print(new_dir, a, l, R);
+				}
+		
+			}	
+
+		}
+
+	}
+
+}
+
+
+
+//MAIN
+int main(int argc, char* argv[]){
+	bool a = 0, l = 0, R = 0;
+	if (R); //temporary
+
+	//FIND FLAGS
+	unsigned n = argc;
+	for (unsigned i = 1; i < n; i++) {
+		if (*argv[i] == '-'){
+
+			string thisArg = argv[i];
+
+			for (unsigned j = 1; j < thisArg.size(); j++){
+				if (thisArg.at(j) == 'a') a = 1;
+				else if (thisArg.at(j) == 'l') l = 1;
+				else if (thisArg.at(j) == 'R') R = 1;
+				else cout << "One or more flags not recognized.\n";
+			}
+
+		}
+
+	}
+
+	pull_and_print(".", a, l, R);
 
 	return 0;
 }
