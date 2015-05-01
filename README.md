@@ -67,9 +67,19 @@ $ exit
 
 Contains the shell program and all related feature sets.  This file may be broken up in the future to allow for more efficient debugging.
 
+###ls.cpp
+
+Contains the ls program and related options.  Functions similarly to bash ls.
+
 ## Known Bugs
+
+###rshell
 * Space after '$' prompt is sometimes deletable.  Causes unexpected behavior.
 * Exit command does not take flags
 * Cursor can move up and down inside shell.  Doing so will mess up commands.
 * The bash command "cd" is not implemented and therefore does not work currently.
 * Bash commands run in this shell will not be contained within the shell and can potentially affect the bash process.  For instance, "clear" will clear the entire screen, including text originating in bash.
+
+###ls
+* The -l flag causes segmentation faults and errno errors in an unpredictable fashion.
+* A rare error occurs where stat() fails to open files in a directory.  Slightly more noticable when executing on very large directories.  Appears to occur in predictable locations.
