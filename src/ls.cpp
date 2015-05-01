@@ -4,6 +4,7 @@
 #include <dirent.h>
 #include <errno.h>
 #include <iostream>
+#include <iomanip>
 #include <stdio.h>
 #include <fcntl.h>
 #include <stdlib.h>
@@ -42,20 +43,27 @@ struct permissions {
 };
 
 bool charCompare(const string c1, const string c2){
-	return strcasecmp(c1.c_str(), c2.c_str()) < 0;
+
+	bool b = strcasecmp(c1.c_str(), c2.c_str()) < 0;
+
+	if (c1.at(0) == '.' && c2.at(0) != '.') b = 1;
+	if (c2.at(0) == '.' && c1.at(0) != '.') b = 0;
+
+	return b;
 }
 
 //FLAGS
 //EXECUTES IF -a IS NOT PRESENT
 void not_a_flag (vector<string> & files){
-		
-	for (vector<string>::iterator i = files.begin(); i != files.end();){
-		char c = i->at(0);
 
-		if (c == '.')
-			files.erase(i);
+	vector<string>::iterator i = files.begin();
+		
+	while ( i != files.end()){
+
+		if (i->at(0) == '.')
+			i =	files.erase(i);
 		else
-			i++;
+			++i;
 	}
 
 }
@@ -66,17 +74,7 @@ void l_flag (vector<string> & files, char & whitespace, string dir) {
 	vector<string> filesCopy = files;
 	files.clear();
 
-	struct stat buf0;
-	string s0 = dir;
-
-	const char* path0 = s0.c_str();
-	if (-1 == stat (path0, &buf0)) {
-		perror("There was a problem with stat()");
-		exit(1);
-	}
-
-	cout << "total " << buf0.st_size << endl; 
-
+	int total = 0;
 	
 	for (vector<string>::iterator i = filesCopy.begin(); i != filesCopy.end(); ++i) {
 
@@ -85,15 +83,16 @@ void l_flag (vector<string> & files, char & whitespace, string dir) {
 		s.append("/");
 		s.append(*i);
 
-
 		const char* path = s.c_str();
-		if (-1 == stat (path, &buf)) {
+
+		int success = stat(path, &buf);
+		if (-1 == success) {
 			perror("There was a problem with stat()");
-			exit(1);
+			//exit(1);
 		}
 
 		errno = 0;
-
+		if  (success != -1) {
 		struct passwd* ownerInfo;
 		struct group* groupInfo;
 
@@ -106,8 +105,7 @@ void l_flag (vector<string> & files, char & whitespace, string dir) {
 			exit(1);
 		}
 
-		cout << "tot " << buf.st_size << endl;
-
+		total = total +  buf.st_blocks;
 
 		//SETTING PERMISSIONS STRING
 		permissions p;
@@ -181,14 +179,25 @@ void l_flag (vector<string> & files, char & whitespace, string dir) {
 		files.back().append( "\t");
 		files.back().append( *i);
 
-
+	}
 
 	}
 
+	total = total / 2;
+	cout << "total " << total << endl;
+	cout << setw(10);
+
+}
+
+bool narrow_files (vector<string> & fileParam, vector<string> & filenames){
+	if (fileParam.empty()) return 0;
+
+	filenames = fileParam;
+	return 1;
 }
 
 //DOES EVERYTHING; CAPABLE OF RECURSION
-void pull_and_print(string dir, bool a, bool l, bool R){
+void pull_and_print(string dir, bool a, bool l, bool R, vector<string> fileParam){
 	
 	char whitespace = ' ';
 	vector<string> filenames;
@@ -211,30 +220,114 @@ void pull_and_print(string dir, bool a, bool l, bool R){
 	}
 
 	//CONDITIONAL ADJUSTMENTS
+	bool fileParamExist = narrow_files (fileParam, filenames);
+
 	if (!a) not_a_flag(filenames); //no -a
 
 	sort(filenames.begin(), filenames.end(), charCompare); //sort alphabetically
 	
 	vector<string> filesCopy = filenames;
-	if (l) l_flag(filenames, whitespace, dir);
+	
+	if (fileParamExist) {
+		vector<string>::iterator j = filenames.begin();
+		while (j != filenames.end()){
+			struct stat buf;
+
+			if (-1 == stat(j->c_str(), &buf)){
+				string errMsg = "Could not open ";
+				errMsg.append(*j);
+				perror(errMsg.c_str());
+				j = filenames.erase(j);
+			}
+			else if (S_ISDIR(buf.st_mode)) {
+
+				if (!R) {
+					cout << *j << ':' << endl;
+				}
+
+				vector<string> empty;
+				pull_and_print(*j, a, l, R, empty);
+				filenames.erase(j);
+
+				if (!R) 	cout << endl;
+			}
+			else {
+				++j;
+			}
+			
+	
+		}
+	}
 
 	if (R) cout << dir << ':' << endl;
 
-	//PRINTING CONTENTS OF FILENAME VECTOR
-	for (vector<string>::iterator it = filenames.begin();
-	it != filenames.end(); ++it){
-		cout << *it << whitespace;
-	}
-	if (whitespace != '\n')
-		cout << endl;
+	if (l) l_flag(filenames, whitespace, dir);
 
+	//PRINTING CONTENTS OF FILENAME VECTOR
+	if (l) {
+		for (unsigned i = 0; i < filenames.size(); i++){
+			string buf;
+			istringstream in(filenames.at(i));
+
+			in >> buf;
+			cout << buf;
+
+			in >> buf;
+			cout << setw(5) << buf;
+
+			for (unsigned j = 0; j < 3; j++){
+				in >> buf;
+				cout << setw(12) << buf;
+			}
+			
+			in >> buf;
+			cout << setw(12) << buf << " ";
+
+
+			for (unsigned k = 0; k < 2; k++){
+				in >> buf;
+				cout << buf << " ";
+			}
+
+			in >> buf;
+			cout << setw(11) << buf;
+
+			cout << endl;
+		}
+	}
+	else if ( filenames.size() > 10) { //directory contains more than 10 items - create nice columns
+		unsigned maxSize = 0;
+		for (unsigned i = 0; i < filenames.size(); i++){
+			if (filenames.at(i).size() > maxSize) maxSize = filenames.at(i).size();
+		}
+
+		unsigned numRows = filenames.size()/4;
+	
+		for (unsigned k = 0; k < numRows; k++) {
+			for (unsigned i = k; i < filenames.size(); i = i + numRows){
+				cout << left << setw(maxSize + 1) << filenames.at(i);
+			}
+			cout << endl;
+		}
+	}
+	else {
+		for (vector<string>::iterator it = filenames.begin();
+		it != filenames.end(); ++it){
+			cout << *it << whitespace;
+		}
+		if (whitespace != '\n')
+			cout << endl;
+	}
+
+	
+	//CLOSE DIRECTORY
 	if (-1 == closedir(dirp)){
 		perror("There was an error with closedir()");
 		exit(1);
 	}
 
 	//PERFORM RECURSION IF -R
-	if (R) {
+	if (R && !fileParamExist) {
 
 		cout << endl;	
 
@@ -249,11 +342,11 @@ void pull_and_print(string dir, bool a, bool l, bool R){
 
 				if (-1 == stat (new_dir.c_str(), &buf)) {
 					perror("There was a problem with stat()");
-					exit(1);
+					//exit(1);
 				}
+				else if (S_ISDIR(buf.st_mode)) {				//	cout << "TEST" << endl;
+					pull_and_print(new_dir, a, l, R, fileParam);
 
-				if (S_ISDIR(buf.st_mode)) {
-					pull_and_print(new_dir, a, l, R);
 				}
 		
 			}	
@@ -269,7 +362,7 @@ void pull_and_print(string dir, bool a, bool l, bool R){
 //MAIN
 int main(int argc, char* argv[]){
 	bool a = 0, l = 0, R = 0;
-	if (R); //temporary
+	vector<string> fileParam; 
 
 	//FIND FLAGS
 	unsigned n = argc;
@@ -286,10 +379,17 @@ int main(int argc, char* argv[]){
 			}
 
 		}
+		else {
+			string s = argv[i];
+			if (s.substr(0, 2) == "./"){
+				s = s.substr(2, s.length());
+			}
+			fileParam.push_back(s);
+		}
 
 	}
 
-	pull_and_print(".", a, l, R);
+	pull_and_print(".", a, l, R, fileParam);
 
 	return 0;
 }
