@@ -58,7 +58,7 @@ $ exit
 ## Included Programs
 ### ls
 Displays filenames in a specified directory, or the current directory by default.  Implementation is based off of GNU ls. The following options are available:
-* `[file/dir]` - passing in filenames causes ls to ignore all other files and directories.  If filename is a directory, will display its contents.
+* `[file/dir]` - passing in filenames causes ls to ignore all other files and directories.  If filename is a directory, will display its contents.  In order to check hidden files, please use -a as well.
 * `-l` - prints files in long-listed format
 * `-R` - recursively performs ls through all folders and subfolders
 * `-a` - displays hidden files
@@ -83,6 +83,7 @@ Output is color coded:
 ### ls
 * One or more flags are unknown ---- Caused by passing in a flag that does not exist.  For instance `ls -cupcake`.
 * There was a problem with stat(): File or directory not found ---- Occurs when ls fails to find/open a file.
+* There was a problem with opendir(): Permission denied ---- Occurs when user does not have access to a directory.
 
 ## Code Summary
 

@@ -421,6 +421,8 @@ void pull_and_print(string dir, bool a, bool l, bool R, vector<string> fileParam
 		cout << endl;
 	}
 
+	if (fileParamExist && !a) cout << "NOTE: If a hidden file has been passed in, please use -a\n"; 
+
 	
 	//CLOSE DIRECTORY
 	if (-1 == closedir(dirp)){
