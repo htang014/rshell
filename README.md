@@ -76,7 +76,13 @@ Output is color coded:
 
 
 ## Possible Errors
+
+### rshell
 * There was a problem with execvp(): File or directory not found ---- Caused by an incorrect or invalid command.
+
+### ls
+* One or more flags are unknown ---- Caused by passing in a flag that does not exist.  For instance `ls -cupcake`.
+* There was a problem with stat(): File or directory not found ---- Occurs when ls fails to find/open a file.
 
 ## Code Summary
 

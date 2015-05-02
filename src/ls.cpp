@@ -469,6 +469,7 @@ int main(int argc, char* argv[]){
 
 	//FIND FLAGS
 	unsigned n = argc;
+	bool unknownFlag = 0;
 	for (unsigned i = 1; i < n; i++) {
 		if (*argv[i] == '-'){
 
@@ -478,7 +479,7 @@ int main(int argc, char* argv[]){
 				if (thisArg.at(j) == 'a') a = 1;
 				else if (thisArg.at(j) == 'l') l = 1;
 				else if (thisArg.at(j) == 'R') R = 1;
-				else cout << "One or more flags not recognized.\n";
+				else unknownFlag = 1;
 			}
 
 		}
@@ -490,6 +491,10 @@ int main(int argc, char* argv[]){
 			fileParam.push_back(s);
 		}
 
+	}
+
+	if (unknownFlag) {
+		cout << "One or more flags not recognized.\n";
 	}
 
 	pull_and_print(".", a, l, R, fileParam);
