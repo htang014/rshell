@@ -6,7 +6,7 @@ In bash, perform the following:
 ```
 $ git clone http://github.com/htang014/rshell.git
 $ cd rshell
-$ git checkout hw0
+$ git checkout hw1
 $ make
 
 ```
@@ -84,6 +84,14 @@ Contains the shell program and all related feature sets.  This file may be broke
 ###ls.cpp
 
 Contains the ls program and related options.  Functions similarly to bash ls.
+
+##cp.cpp
+
+Copy files.  Under Construction.
+
+###Timer.h
+
+Contains the clock functions of cp.cpp.
 
 ## Known Bugs
 
