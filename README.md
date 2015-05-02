@@ -57,7 +57,7 @@ $ exit
 
 ## Included Programs
 ### ls
-The following options are available:
+Displays filenames in a specified directory, or the current directory by default.  Implementation is based off of GNU ls. The following options are available:
 * `[file/dir]` - passing in filenames causes ls to ignore all other files and directories.  If filename is a directory, will display its contents.
 * `-l` - prints files in long-listed format
 * `-R` - recursively performs ls through all folders and subfolders
