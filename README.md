@@ -19,11 +19,25 @@ $ bin/rshell
 ## Features/Usage
 Rshell is a bash-like command shell.  A display showing the current working directory, followed by a command prompt ($ ) means the program is awaiting input.  You may execute any command stored in the $PATH variable along with supported flags.
 
-* **ls** - Recently implemented!  Type `bin\ls` to use. Accepts the following options:
-	* `-l` - prints files in long-listed format
-	* `-R` - recursively performs ls through all folders and subfolders
-	* `-a` - displays hidden files
+* **ls** - Recently implemented!  Type `bin\ls` to use. See info below.
 
+## Included Programs
+### ls
+The following options are available:
+* `[file/dir]` - passing in filenames causes ls to ignore all other files and directories.  If filename is a directory, will display its contents.
+* `-l` - prints files in long-listed format
+* `-R` - recursively performs ls through all folders and subfolders
+* `-a` - displays hidden files
+NOTE: Options can be combined under one '-' flag.  Options without a '-' flag are treated as file/directory names.
+
+Output is color coded:
+* Filenames are white by default
+* Green filename indicates executable
+* Blue filename indicates directory
+* Grey text background indicates hidden file
+
+###cp
+[Under construction]
 
 
 ###To execute a command:
@@ -81,5 +95,8 @@ Contains the ls program and related options.  Functions similarly to bash ls.
 * Bash commands run in this shell will not be contained within the shell and can potentially affect the bash process.  For instance, "clear" will clear the entire screen, including text originating in bash.
 
 ###ls
-* The -l flag causes segmentation faults and errno errors in an unpredictable fashion.
+* The getpwuid() and getgrgid() syscalls used in the -l flag return NULL occasionally and unpredictably.  Owner name and group name will occasionally display as "ERROR" in this case.
+* Errno errors occur in an unpredictable fashion when using -l.
 * A rare error occurs where stat() fails to open files in a directory.  Slightly more noticable when executing on very large directories.  Appears to occur in predictable locations.
+* Running ls with -R while passing in filenames displays current directory even if no files inside are mentioned.
+* Color codes for hidden files (grey background) skews column formatting slightly.
