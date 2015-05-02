@@ -21,23 +21,6 @@ Rshell is a bash-like command shell.  A display showing the current working dire
 
 * **ls** - Recently implemented!  Type `bin\ls` to use. See info below.
 
-## Included Programs
-### ls
-The following options are available:
-* `[file/dir]` - passing in filenames causes ls to ignore all other files and directories.  If filename is a directory, will display its contents.
-* `-l` - prints files in long-listed format
-* `-R` - recursively performs ls through all folders and subfolders
-* `-a` - displays hidden files
-NOTE: Options can be combined under one '-' flag.  Options without a '-' flag are treated as file/directory names.
-
-Output is color coded:
-* Filenames are white by default
-* Green filename indicates executable
-* Blue filename indicates directory
-* Grey text background indicates hidden file
-
-###cp
-[Under construction]
 
 
 ###To execute a command:
@@ -71,6 +54,26 @@ $ cmd -l # Everything after the '#' is a comment.
 ```
 $ exit
 ```
+
+## Included Programs
+### ls
+The following options are available:
+* `[file/dir]` - passing in filenames causes ls to ignore all other files and directories.  If filename is a directory, will display its contents.
+* `-l` - prints files in long-listed format
+* `-R` - recursively performs ls through all folders and subfolders
+* `-a` - displays hidden files
+NOTE: Options can be combined under one '-' flag.  Options without a '-' flag are treated as file/directory names.
+
+Output is color coded:
+* Filenames are white by default
+* Green filename indicates executable
+* Blue filename indicates directory
+* Grey text background indicates hidden file
+
+###cp
+[Under construction]
+
+
 
 ## Possible Errors
 * There was a problem with execvp(): File or directory not found ---- Caused by an incorrect or invalid command.
