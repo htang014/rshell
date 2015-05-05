@@ -42,15 +42,13 @@ int main(int argc, char ** argv){
 		exit(1);
 	}
 
-	if( NULL == (dirp = opendir(holder[1].c_str()))){ 
-		cerr << holder[1] << "does not exist" << endl;
-	}
-	else{
-		if(stat(holder[1].c_str(), &s)==-1){
-			perror("stat");
-			exit(1);
-		}
-		if(S_IFDIR & s.st_mode){
+	
+	if(stat(holder[1].c_str(), &s)!=-1){ // if exists		
+		if(S_IFDIR & s.st_mode){ //is a dir
+			if( NULL == (dirp = opendir(holder[1].c_str()))){ 
+				cerr << holder[1] << "does not exist" << endl;
+				exit(1);
+			}	
 			if(-1 == link(holder[0].c_str(), (holder[1] + '/' + holder[0]).c_str())){
 				perror("link");
 				exit(1);
@@ -60,6 +58,18 @@ int main(int argc, char ** argv){
 				exit(1);
 			}
 		}
-	}	
+	}
+		
+	else{ //not exist
+		if(-1 == link(holder[0].c_str(), holder[1].c_str())){
+			perror("link");
+			exit(1);
+		}
+		if(-1 == unlink(holder[0].c_str())){
+			perror("unlink");
+			exit(1);
+		}
+	}
+
 	return 0;
 }
