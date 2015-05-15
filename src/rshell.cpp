@@ -104,6 +104,11 @@ int doPipe (vector<string> & pipeline) {
 		}
 	}
 
+	while (pipeline.front() != "|" && !pipeline.empty())
+		pipeline.erase(pipeline.begin());
+	if (!pipeline.empty())
+		pipeline.erase(pipeline.begin());
+
 
 	transform(argLeft.begin(), argLeft.end(), back_inserter(argLeftC), convert);
 	argLeftC.push_back(NULL);
@@ -162,6 +167,14 @@ int doPipe (vector<string> & pipeline) {
 				perror("There was an error with dup2");
 			if (-1 == close(fd[PIPE_WRITE]))
 				perror("There was an error with close()");
+
+		
+			for (unsigned k = 0; k < pipeline.size(); k++){
+				if (pipeline.at(k) == "|"){
+					doPipe (pipeline);
+					break;
+				}
+			}
 
 			if (-1 == execvp(argRightC[0], &argRightC[0]))
 				perror("There was an error with execvp()");
