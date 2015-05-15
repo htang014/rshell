@@ -79,6 +79,8 @@ int doRedirIn(string infile, int & savestdin){
 }
 
 int doPipe (vector<string> & pipeline) {
+	int status = 0;
+
 	vector<string> argLeft;
 	vector<string> argRight;
 	vector<char*> argLeftC;
@@ -171,7 +173,7 @@ int doPipe (vector<string> & pipeline) {
 		
 			for (unsigned k = 0; k < pipeline.size(); k++){
 				if (pipeline.at(k) == "|"){
-					doPipe (pipeline);
+					status = doPipe (pipeline);
 					break;
 				}
 			}
@@ -195,7 +197,7 @@ int doPipe (vector<string> & pipeline) {
 	}
 
 
-	return 0;
+	return status;
 }
 
 //------------------------------------------------------------
@@ -229,7 +231,7 @@ int doExec(vector<char*> instr){
 		else if (instrCopy.at(i) == IN){
 			fd = doRedirIn(instrCopy.at(i+1),savestdin);
 
-			while (i != instrCopy.size() && instrCopy.at(i) != IN && instrCopy.at(i) != OUT1 && instrCopy.at(i) != OUT2){
+			while (i != instrCopy.size() && instrCopy.at(i) != OUT1 && instrCopy.at(i) != OUT2 && instrCopy.at(i) != "|"){
 				instrCopy.erase(instrCopy.begin()+i);
 			}
 		}
@@ -294,6 +296,7 @@ int doExec(vector<char*> instr){
 			}
 		}
 
+		//EXECUTION
 		if (!pipeline.empty()){
 			if (-1 == doPipe(pipeline))
 				cerr << "Piping failed\n";
@@ -318,7 +321,7 @@ int doExec(vector<char*> instr){
 				int waitPid = 0;
 
 				if (-1 == waitpid(waitPid, &childStat, 0)){
-				perror("There was an error with wait()");
+					perror("There was an error with wait()");
 				}
 
 				childStat = WEXITSTATUS(childStat);
