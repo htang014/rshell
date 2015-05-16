@@ -421,6 +421,21 @@ int main () {
 		getline(cin, cmd);
 		
 		commentOut(cmd);
+
+
+		for (unsigned i = 0; i < cmd.length(); i++){
+			if (i < cmd.length()-1 && ((cmd.at(i) == '&' && cmd.at(i+1) == '&') || (cmd.at(i) == '|' && cmd.at(i+1) == '|') || (cmd.at(i) == '>' && cmd.at(i+1) == '>'))){
+				cmd.insert(i+2, " ");
+				cmd.insert(i, " ");
+				i += 2;
+			}
+			else if (cmd.at(i) == ';' || cmd.at(i) == '<' || cmd.at(i) == '>' || cmd.at(i) == '|'){
+				cmd.insert(i+1, " ");
+				cmd.insert(i, " ");
+				i++;
+			}
+		}
+
 		
 		//resolve space after command scenario
 		if (cmd.at(cmd.size() - 1) == ' ') 
