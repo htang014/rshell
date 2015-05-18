@@ -1,0 +1,239 @@
+Script started on Sun 17 May 2015 07:44:57 PM PDT
+~
+htang014@hammer $ ls
+[0m[01;32ma.out[0m*     assn2.asm  assn4.asm   assn5.asm  [01;34mDesktop[0m/    lab06_ex1.asm   lab06_ex2.asm  lab07_ex1.asm~  [01;34mtemp[0m/
+assn1.asm  assn3.asm  assn4.asm~  [01;34mbin?[0m/      [01;34mDownloads[0m/  lab06_ex1.asm~  lab07_ex1.asm  [01;34mrshell[0m/         [01;34mucr-cs100[0m/
+[m~
+htang014@hammer $ cd rshell
+~/rshell
+htang014@hammer $ make
+mkdir -p bin
+g++ -ansi -pedantic -Wall -Werror src/rshell.cpp -o bin/rshell
+g++ src/cp.cpp -o bin/cp
+g++ -ansi -pedantic -Wall -Werror src/ls.cpp -o bin/ls -Wno-write-strings
+g++ -ansi -pedantic -Wall -Werror src/rshell.cpp -o bin/rshell
+~/rshell
+htang014@hammer $ bin/rshell
+/class/classes/htang014/rshell
+htang014@hammer $ cat input
+this is a test
+this is also a test
+this is a better test
+this is also a better test
+
+/class/classes/htang014/rshell
+htang014@hammer $ cat input2 #contents of input and input2
+G
+A
+F
+C
+B
+D
+E
+
+
+/class/classes/htang014/rshell
+htang014@hammer $ cat < input #input redirection
+this is a test
+this is also a test
+this is a better test
+this is also a better test
+
+/class/classes/htang014/rshell
+htang014@hammer $ cat <<< "This is a string." #input string redirection
+This is a string.
+/class/classes/htang014/rshell
+htang014@hammer $ cat < input > output #outfile creation and redirection
+
+/class/classes/htang014/rshell
+htang014@hammer $ cat output
+this is a test
+this is also a test
+this is a better test
+this is also a better test
+
+/class/classes/htang014/rshell
+htang014@hammer $ cat < input2 > output #overwrite outfile
+
+/class/classes/htang014/rshell
+htang014@hammer $ cat output
+G
+A
+F
+C
+B
+D
+E
+
+this is also a test
+this is a better test
+this is also a better test
+
+/class/classes/htang014/rshell
+htang014@hammer $ cat < input >> output #append to outfile
+
+/class/classes/htang014/rshell
+htang014@hammer $ cat output
+G
+A
+F
+C
+B
+D
+E
+
+this is also a test
+this is a better test
+this is also a better test
+this is a test
+this is also a test
+this is a better test
+this is also a better test
+
+/class/classes/htang014/rshell
+htang014@hammer $ cat input
+this is a test
+this is also a test
+this is a better test
+this is also a better test
+
+/class/classes/htang014/rshell
+htang014@hammer $ ls | cat #pipe
+bin
+input
+input2
+LICENSE
+Makefile
+output
+README.md
+src
+test.cpp
+tests
+
+/class/classes/htang014/rshell
+htang014@hammer $ ls | cat | tr a-z A-Z #2 pipes
+BIN
+INPUT
+INPUT2
+LICENSE
+MAKEFILE
+OUTPUT
+README.MD
+SRC
+TEST.CPP
+TESTS
+
+/class/classes/htang014/rshell
+htang014@hammer $ ls | cat | tr a-z A-Z | grep L #3 pipes
+LICENSE
+MAKEFILE
+
+/class/classes/htang014/rshell
+htang014@hammer $ cat < input | grep this | grep also | tr a-z A-Z > output #mixing I/O redirection and piping
+
+/class/classes/htang014/rshell
+htang014@hammer $ cat < input | grep this | tr a-z A-Z > output2 > output3
+
+/class/classes/htang014/rshell
+htang014@hammer $ cat output #multiple fi  outfiles
+THIS IS ALSO A TEST
+THIS IS ALSO A BETTER TEST
+tter test
+this is also a better test
+this is a test
+this is also a test
+this is a better test
+this is also a better test
+
+/class/classes/htang014/rshell
+htang014@hammer $ cat output2
+THIS IS A TEST
+THIS IS ALSO A TEST
+THIS IS A BETTER TEST
+THIS IS ALSO A BETTER TEST
+
+/class/classes/htang014/rshell
+htang014@hammer $ cat output3
+THIS IS A TEST
+THIS IS ALSO A TEST
+THIS IS A BETTER TEST
+THIS IS ALSO A BETTER TEST
+
+/class/classes/htang014/rshell
+htang014@hammer $ cat test.cpp #contents of broken cpp file
+int main{
+
+	wow so much error
+
+	cout << "hello world";
+
+}
+
+/class/classes/htang014/rshell
+htang014@hammer $ g++ test.cpp 2> output #cerr redirected to output
+
+/class/classes/htang014/rshell
+htang014@hammer $ cat output
+test.cpp:1: warning: extended initializer lists only available with -std=c++0x or -std=gnu++0x
+test.cpp:3: error: ‘wow’ was not declared in this scope
+test.cpp:3: error: expected ‘}’ before ‘so’
+test.cpp:3: error: expected ‘,’ or ‘;’ before ‘so’
+test.cpp:7: error: expected declaration before ‘}’ token
+
+/class/classes/htang014/rshell
+htang014@hammer $ cat input2 | tee output | tr a-z A-Z #tee doesnt work
+G
+A
+F
+C
+B
+D
+E
+
+
+/class/classes/htang014/rshell
+htang014@hammer $ cat output
+
+/class/classes/htang014/rshell
+htang014@hammer $ cat input2 | tee -a output (tr a-z A-Z             | tr a-z A-Z #tee works
+G
+A
+F
+C
+B
+D
+E
+
+
+/class/classes/htang014/rshell
+htang014@hammer $ cat output
+G
+A
+F
+C
+B
+D
+E
+
+
+/class/classes/htang014/rshell
+htang014@hammer $ cat input | tee output #tee works
+this is a test
+this is also a test
+this is a better test
+this is also a better test
+
+/class/classes/htang014/rshell
+htang014@hammer $ cat output
+this is a test
+this is also a test
+this is a better test
+this is also a better test
+
+/class/classes/htang014/rshell
+htang014@hammer $ exit
+~/rshell
+htang014@hammer $ exit
+exit
+
+Script done on Sun 17 May 2015 07:53:33 PM PDT
