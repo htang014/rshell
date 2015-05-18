@@ -585,6 +585,9 @@ int main () {
 		cout << dirName << endl;
 		cout << loginID << '@' << name  << " $ ";
 		getline(cin, cmd);
+
+		if (cmd.empty())
+			continue;
 		
 		commentOut(cmd);
 
