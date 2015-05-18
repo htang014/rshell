@@ -44,6 +44,16 @@ NOTE: Logic operations are interpreted and performed left to right. Empty comman
 
 * **;** - Execute the command the the right of this after executing the command to the left.
 
+###I/O redirection and piping:
+
+* **<** - Pass file to the right as input to command on the left. (``cat < inputfile``)
+* **<<<** - Pass string to the right as input to command on the left. (``cat <<< "This is a string."``)
+* **>** - Output all commands to the left to file on the right. Create if outfile does not exist, overwrite if it does.  (``cat > outfile1 > outfile2``)
+* **>>** - Output all commands to the left to file on the right. Create if outfile does not exist, append if it does.
+* **|** - Pipe output of command on the left to input of command on the right. (``cat infile | grep word``)
+
+NOTE: Redirects and pipes can be combined.  Commands located after output redirection are ignored.
+
 ###Adding comments:
 
 ```
@@ -71,19 +81,21 @@ Output is color coded:
 * Grey text background indicates hidden file
 
 ###cp
-[Under construction]
-
+``cp [source] [destination]``.  Takes the file in source and copies it to destination.
 
 
 ## Possible Errors
 
 ### rshell
-* There was a problem with execvp(): File or directory not found ---- Caused by an incorrect or invalid command.
+* There was an error with execvp(): File or directory not found ---- Caused by an incorrect or invalid command.
+* There was an error with open(): File or directory not found ---- Caused by trying to access an invalid file.
+* Too many input redirects ---- Occurs when attempting to pass in more than one input to a command.
+* Invalid redirection at front()/back() ---- Performed redirection at front or back to empty command.
 
 ### ls
 * One or more flags are unknown ---- Caused by passing in a flag that does not exist.  For instance `ls -cupcake`.
-* There was a problem with stat(): File or directory not found ---- Occurs when ls fails to find/open a file.
-* There was a problem with opendir(): Permission denied ---- Occurs when user does not have access to a directory.
+* There was an error with stat(): File or directory not found ---- Occurs when ls fails to find/open a file.
+* There was an error with opendir(): Permission denied ---- Occurs when user does not have access to a directory.
 
 ## Code Summary
 
@@ -110,6 +122,7 @@ Contains the clock functions of cp.cpp.
 * Exit command does not take flags
 * Cursor can move up and down inside shell.  Doing so will mess up commands.
 * The bash command "cd" is not implemented and therefore does not work currently.
+* Piping the linux command ``tee outfile`` and the piping the output of tee to another command will yield an empty outfile.
 * Bash commands run in this shell will not be contained within the shell and can potentially affect the bash process.  For instance, "clear" will clear the entire screen, including text originating in bash.
 
 ###ls
