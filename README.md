@@ -123,6 +123,7 @@ Contains the clock functions of cp.cpp.
 * Cursor can move up and down inside shell.  Doing so will mess up commands.
 * The bash command "cd" is not implemented and therefore does not work currently.
 * Piping the linux command ``tee outfile`` and the piping the output of tee to another command will yield an empty outfile.
+* Avoid using the '>' output redirection on an existing file.  The file will be overwritten, and the contents may be unpredictable.
 * Bash commands run in this shell will not be contained within the shell and can potentially affect the bash process.  For instance, "clear" will clear the entire screen, including text originating in bash.
 
 ###ls
