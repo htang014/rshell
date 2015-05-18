@@ -127,6 +127,7 @@ Contains the clock functions of cp.cpp.
 * Piping the linux command ``tee outfile`` and the piping the output of tee to another command will yield an empty outfile.
 * Avoid using the '>' output redirection on an existing file.  The file will be overwritten, and the contents may be unpredictable.
 * Bash commands run in this shell will not be contained within the shell and can potentially affect the bash process.  For instance, "clear" will clear the entire screen, including text originating in bash.
+* [FATAL] Entering in a connector with no commands can crash the shell
 
 ###ls
 * The getpwuid() and getgrgid() syscalls used in the -l flag return NULL occasionally and unpredictably.  Owner name and group name will occasionally display as "ERROR" in this case.
