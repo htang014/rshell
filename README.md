@@ -46,13 +46,15 @@ NOTE: Logic operations are interpreted and performed left to right. Empty comman
 
 ###I/O redirection and piping:
 
+Redirection and pipes are read left to right:
+
 * **<** - Pass file to the right as input to command on the left. (``cat < inputfile``)
 * **<<<** - Pass string to the right as input to command on the left. (``cat <<< "This is a string."``)
 * **>** - Output all commands to the left to file on the right. Create if outfile does not exist, overwrite if it does.  (``cat > outfile1 > outfile2``)
 * **>>** - Output all commands to the left to file on the right. Create if outfile does not exist, append if it does.
 * **|** - Pipe output of command on the left to input of command on the right. (``cat infile | grep word``)
 
-NOTE: Redirects and pipes can be combined.  Commands located after output redirection are ignored.
+NOTE: Redirects and pipes can be combined.  Commands located after output redirection are ignored.  Passing in two input will result in an error if potentially fatal, ignore second input if not.
 
 ###Adding comments:
 
