@@ -113,6 +113,7 @@ int doRedirInStr(string instring, int & savestdin){
 		exit(1);
 	}
 	else if (pid > 0){
+		sigignore(SIGINT);
 		if (-1 == (savestdin = dup(0)))
 			perror("There was an error with dup()");
 		if (-1 == wait(0))
@@ -203,6 +204,7 @@ int doPipe (vector<string> & pipeline) {
 		exit(1);
 	}
 	else if (pid > 0){
+		sigignore(SIGINT);
 		int savestdin;
 		if (-1 == (savestdin = dup(0)))
 			perror("There was an error with dup()");
@@ -461,6 +463,7 @@ int doExec(vector<char*> instr){
 
 			}
 			else {
+				sigignore(SIGINT);
 				int waitPid = 0;
 
 				if (-1 == waitpid(waitPid, &childStat, 0)){
@@ -529,6 +532,7 @@ void changeDir (string a){
 	if (-1 == chdir(fullPath.c_str())){
 		perror("There was an error with chdir()");
 		free(dirName);
+		free(cwd);
 		return;
 	}
 
@@ -538,6 +542,7 @@ void changeDir (string a){
 	}
 
 	//update value of cwd
+	free(cwd);
 	if (NULL == (cwd = getcwd(NULL,0))){
 		perror("There was an error with getcwd()");
 	}
@@ -548,6 +553,8 @@ void changeDir (string a){
 	}
 
 	free(dirName);
+	free(cwd);
+
 }
 
 //------------------------------------------------------------
@@ -661,6 +668,7 @@ int main () {
 		cout << dirName << endl;
 		cout << loginID << '@' << name  << " $ ";
 
+		free(dirName);
 
 		cin.clear();
 		getline(cin, cmd);
@@ -710,8 +718,6 @@ int main () {
 
 
 		extern void __libc_freeres (void);
-		free(dirName);
-
 
 		//check for exit command
 		if (cmd == "exit") exit(0);
