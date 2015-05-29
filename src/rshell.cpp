@@ -636,7 +636,7 @@ struct sigaction curr, prev;
 int main () {
 	curr.sa_handler = handler;
 	if (prev.sa_handler != SIG_IGN)
-		sigaction(SIGINT, &curr, NULL);
+		sigaction(SIGINT, &curr, &prev);
 
 	string cmd;
 	char name[26];
