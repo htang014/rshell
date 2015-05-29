@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <algorithm>
+#include <signal.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 using namespace std;
@@ -491,8 +492,65 @@ int doExec(vector<char*> instr){
 }
 //------------------------------------------------------------
 
+void changeDir (string a){
+	char *dirName, *cwd, *pwd, *home, *oldpwd;
+	string fullPath;
 
+	//syscall variables
+	if (NULL == (cwd = getcwd(NULL,0))){
+		perror("There was an error with getcwd()");
+	}
+	if (NULL == (pwd = getenv("PWD"))){
+		perror("There was an error with getenv()");
+	}
+	if (NULL == (home = getenv("HOME"))){
+		perror("There was an error with getenv()");
+	}
+	if (NULL == (oldpwd = getenv("OLDPWD"))){
+		perror("There was an error with getenv()");
+	}
+	///////////
+	//
+	if (NULL == (dirName = get_current_dir_name())){
+		perror("There was an error with get_current_dir_name()");
+	}
 
+	fullPath.append(dirName);
+	fullPath.append("/");
+	fullPath.append(a);
+
+	if (a.empty()){
+		fullPath = home;
+	}
+	if (a == "-"){
+		fullPath = oldpwd;
+	}
+
+	if (-1 == chdir(fullPath.c_str())){
+		perror("There was an error with chdir()");
+		free(dirName);
+		return;
+	}
+
+	//update value of oldpwd env var
+	if (-1 == setenv("OLDPWD", pwd, 1)){
+		perror("There was an error with setenv()");
+	}
+
+	//update value of cwd
+	if (NULL == (cwd = getcwd(NULL,0))){
+		perror("There was an error with getcwd()");
+	}
+
+	//update value of pwd env var
+	if (-1 == setenv("PWD", cwd, 1)){
+		perror("There was an error with setenv()");
+	}
+
+	free(dirName);
+}
+
+//------------------------------------------------------------
 void doLogic (vector<char*> a){
 	vector<char*> cmd = a;
 	vector<char*> segment;
@@ -551,9 +609,28 @@ vector<char*> str_parse(string str){
 	return argListC;
 }
 
+//-----------------------------------------------------------
+
+void handler(int signum){
+	switch(signum){
+		case SIGINT:
+			cout << endl;
+			break;
+
+		default:
+			break;
+	}
+}
+
 //------------------------------------------------------------
 
+struct sigaction curr, prev;
+
 int main () {
+	curr.sa_handler = handler;
+	if (prev.sa_handler != SIG_IGN)
+		sigaction(SIGINT, &curr, NULL);
+
 	string cmd;
 	char name[26];
 
@@ -571,7 +648,6 @@ int main () {
 	}
 
 	while (true){
-
 		char * loginID;
 		char	* dirName;
 
@@ -584,6 +660,9 @@ int main () {
 
 		cout << dirName << endl;
 		cout << loginID << '@' << name  << " $ ";
+
+
+		cin.clear();
 		getline(cin, cmd);
 
 		if (cmd.empty())
@@ -636,8 +715,16 @@ int main () {
 
 		//check for exit command
 		if (cmd == "exit") exit(0);
-	
-		doLogic(str_parse(cmd));	
+
+		if (cmd.substr(0,2) == "cd"){
+			if (cmd.size() > 3)
+				changeDir(cmd.substr(3));
+			else
+				changeDir("");
+		}
+		else{
+			doLogic(str_parse(cmd));
+		}	
 
 		cout << endl;
 	}
