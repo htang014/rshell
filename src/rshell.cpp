@@ -260,7 +260,69 @@ int doPipe (vector<string> & pipeline) {
 
 	return status;
 }
+//------------------------------------------------------------
 
+void changeDir (string a){
+	char *dirName, *cwd, *pwd, *home, *oldpwd;
+	string fullPath;
+
+	//syscall variables
+	if (NULL == (cwd = getcwd(NULL,0))){
+		perror("There was an error with getcwd()");
+	}
+	if (NULL == (pwd = getenv("PWD"))){
+		perror("There was an error with getenv()");
+	}
+	if (NULL == (home = getenv("HOME"))){
+		perror("There was an error with getenv()");
+	}
+	if (NULL == (oldpwd = getenv("OLDPWD"))){
+		perror("There was an error with getenv()");
+	}
+	///////////
+	//
+	if (NULL == (dirName = get_current_dir_name())){
+		perror("There was an error with get_current_dir_name()");
+	}
+
+	fullPath.append(dirName);
+	fullPath.append("/");
+	fullPath.append(a);
+
+	if (a.empty()){
+		fullPath = home;
+	}
+	if (a == "-"){
+		fullPath = oldpwd;
+	}
+
+	if (-1 == chdir(fullPath.c_str())){
+		perror("There was an error with chdir()");
+		free(dirName);
+		free(cwd);
+		return;
+	}
+
+	//update value of oldpwd env var
+	if (-1 == setenv("OLDPWD", pwd, 1)){
+		perror("There was an error with setenv()");
+	}
+
+	//update value of cwd
+	free(cwd);
+	if (NULL == (cwd = getcwd(NULL,0))){
+		perror("There was an error with getcwd()");
+	}
+
+	//update value of pwd env var
+	if (-1 == setenv("PWD", cwd, 1)){
+		perror("There was an error with setenv()");
+	}
+
+	free(dirName);
+	free(cwd);
+
+}
 //------------------------------------------------------------
 int doExec(vector<char*> instr){
 
@@ -446,6 +508,12 @@ int doExec(vector<char*> instr){
 			if (-1 == doPipe(pipeline))
 				cerr << "Piping failed\n";
 		}
+		else if (instrCopy.at(0) == "cd"){
+			if (instrCopy.size() > 1)
+				changeDir(instrCopy.at(1));
+			else
+				changeDir("");
+		}
 		else {
 			int pid = fork();
 
@@ -493,69 +561,7 @@ int doExec(vector<char*> instr){
 
 	return childStat;
 }
-//------------------------------------------------------------
 
-void changeDir (string a){
-	char *dirName, *cwd, *pwd, *home, *oldpwd;
-	string fullPath;
-
-	//syscall variables
-	if (NULL == (cwd = getcwd(NULL,0))){
-		perror("There was an error with getcwd()");
-	}
-	if (NULL == (pwd = getenv("PWD"))){
-		perror("There was an error with getenv()");
-	}
-	if (NULL == (home = getenv("HOME"))){
-		perror("There was an error with getenv()");
-	}
-	if (NULL == (oldpwd = getenv("OLDPWD"))){
-		perror("There was an error with getenv()");
-	}
-	///////////
-	//
-	if (NULL == (dirName = get_current_dir_name())){
-		perror("There was an error with get_current_dir_name()");
-	}
-
-	fullPath.append(dirName);
-	fullPath.append("/");
-	fullPath.append(a);
-
-	if (a.empty()){
-		fullPath = home;
-	}
-	if (a == "-"){
-		fullPath = oldpwd;
-	}
-
-	if (-1 == chdir(fullPath.c_str())){
-		perror("There was an error with chdir()");
-		free(dirName);
-		free(cwd);
-		return;
-	}
-
-	//update value of oldpwd env var
-	if (-1 == setenv("OLDPWD", pwd, 1)){
-		perror("There was an error with setenv()");
-	}
-
-	//update value of cwd
-	free(cwd);
-	if (NULL == (cwd = getcwd(NULL,0))){
-		perror("There was an error with getcwd()");
-	}
-
-	//update value of pwd env var
-	if (-1 == setenv("PWD", cwd, 1)){
-		perror("There was an error with setenv()");
-	}
-
-	free(dirName);
-	free(cwd);
-
-}
 
 //------------------------------------------------------------
 void doLogic (vector<char*> a){
@@ -722,15 +728,15 @@ int main () {
 		//check for exit command
 		if (cmd == "exit") exit(0);
 
-		if (cmd.substr(0,2) == "cd"){
+		/*if (cmd.substr(0,2) == "cd"){
 			if (cmd.size() > 3)
 				changeDir(cmd.substr(3));
 			else
 				changeDir("");
 		}
-		else{
+		else{*/
 			doLogic(str_parse(cmd));
-		}	
+		//}	
 
 		cout << endl;
 	}
