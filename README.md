@@ -62,6 +62,29 @@ NOTE: Redirects and pipes can be combined.  Commands located after output redire
 $ cmd -l # Everything after the '#' is a comment.
 ```
 
+###Changing directories:
+As `cd` is not built into Linux, rshell has `cd` explicitly coded in.  In order to execute `cd`:
+```
+cd <PATH>
+```
+If you want to return to a previous directory:
+```
+cd -
+```
+In order to go to the home directory:
+```
+cd
+```
+To go to the parent directory:
+```
+cd ..
+```
+
+###Force closing a command/program:
+```
+^C
+```
+
 ###Quitting:
 ```
 $ exit
