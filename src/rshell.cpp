@@ -661,8 +661,8 @@ int main () {
 	}
 
 	while (true){
-		char * loginID;
-		char	* dirName;
+		char * loginID, * dirName, * home;
+		string homeStr, dirNameStr;
 
 		if (NULL == (loginID = getlogin())){
 			perror("There was an error with getlogin()");
@@ -670,8 +670,15 @@ int main () {
 		if (NULL == (dirName = get_current_dir_name())){
 			perror("There was an error with get_current_dir_name()");
 		}
+		if (NULL == (home = getenv("HOME"))){
+			perror("There was an error with getenv()");
+		}
+		homeStr = home;
+		dirNameStr = dirName;
 
-		cout << dirName << endl;
+		dirNameStr.replace(dirNameStr.find(homeStr),homeStr.size(),"~");
+
+		cout << dirNameStr << endl;
 		cout << loginID << '@' << name  << " $ ";
 
 		free(dirName);
