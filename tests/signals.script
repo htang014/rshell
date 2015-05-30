@@ -32,7 +32,6 @@ htang014@hammer $ cd -
 /class/classes/htang014/rshell
 htang014@hammer $ # ctrl-c testing
 
-~/rshell
 htang014@hammer $ cat #testing ctrl-c inside running program
 test
 test
