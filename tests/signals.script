@@ -31,9 +31,7 @@ htang014@hammer $ cd -
 
 /class/classes/htang014/rshell
 htang014@hammer $ # ctrl-c testing
-terminate called after throwing an instance of 'std::out_of_range'
-  what():  basic_string::at
-Aborted
+
 ~/rshell
 htang014@hammer $ cat #testing ctrl-c inside running program
 test
