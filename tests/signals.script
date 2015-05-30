@@ -1,0 +1,52 @@
+Script started on Fri 29 May 2015 06:00:27 PM PDT
+~
+htang014@hammer $ cd rshell
+~/rshell
+htang014@hammer $ make
+mkdir -p bin
+g++ -ansi -pedantic -Wall -Werror src/rshell.cpp -o bin/rshell
+g++ src/cp.cpp -o bin/cp
+g++ -ansi -pedantic -Wall -Werror src/ls.cpp -o bin/ls -Wno-write-strings
+g++ -ansi -pedantic -Wall -Werror src/rshell.cpp -o bin/rshell
+~/rshell
+htang014@hammer $ bin/rshell
+/class/classes/htang014/rshell
+htang014@hammer $ cd src # testing sr  cd with path
+
+/class/classes/htang014/rshell/src
+htang014@hammer $ cd .. #parent directory
+
+/class/classes/htang014/rshell
+htang014@hammer $ cd ../.. #parent's parent dir
+
+/class/classes
+htang014@hammer $ cd - #back to previous folder
+
+/class/classes/htang014/rshell
+htang014@hammer $ cd src && ls #with connector
+a.out  cp.cpp  ls.cpp  mv.cpp  rm.cpp  rshell  rshell.cpp  Timer.h
+
+/class/classes/htang014/rshell/src
+htang014@hammer $ cd -
+
+/class/classes/htang014/rshell
+htang014@hammer $ # ctrl-c testing
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  basic_string::at
+Aborted
+~/rshell
+htang014@hammer $ cat #testing ctrl-c inside running program
+test
+test
+yest
+yest
+best
+best
+
+~/rshell
+htang014@hammer $ 
+~/rshell
+htang014@hammer $ exit
+exit
+
+Script done on Fri 29 May 2015 06:03:51 PM PDT
