@@ -326,6 +326,9 @@ void changeDir (string a){
 //------------------------------------------------------------
 int doExec(vector<char*> instr){
 
+	if (instr.empty())
+		return 0;
+
 	string IN = "<";
 	string IN2 = "<<<";
 	string OUT1 = ">";
@@ -576,7 +579,7 @@ void doLogic (vector<char*> a){
 		if (strcmp(cmd.at(0),OR) == 0){
 			int status = doExec(segment);
 			segment.clear();
-			if (status != -1) return;	
+			if (status == 0) return;	
 		}
 		else if (strcmp(cmd.at(0), AND) == 0){
 			int status = doExec(segment);
