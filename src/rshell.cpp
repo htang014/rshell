@@ -579,12 +579,27 @@ void doLogic (vector<char*> a){
 		if (strcmp(cmd.at(0),OR) == 0){
 			int status = doExec(segment);
 			segment.clear();
-			if (status == 0) return;	
+			if (status == 0){
+
+				for (unsigned i = 0; i< a.size(); i++){
+					if (a.at(i) != NULL)
+						delete[] a.at(i);
+				}
+			 	return;	
+			}
 		}
 		else if (strcmp(cmd.at(0), AND) == 0){
 			int status = doExec(segment);
 			segment.clear();
-			if (status != 0) return;
+			if (status != 0){
+
+				for (unsigned i = 0; i< a.size(); i++){
+					if (a.at(i) != NULL)
+						delete[] a.at(i);
+				}
+			 	return;	
+
+			}
 		}
 		else if (strcmp(cmd.at(0), END) == 0){
 			doExec(segment);
