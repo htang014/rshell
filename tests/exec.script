@@ -1,17 +1,6 @@
-Script started on Mon 08 Jun 2015 10:18:18 PM PDT
+Script started on Tue 09 Jun 2015 12:05:28 AM PDT
 ~
-htang014@hammer $ ls
-1.asm       assn6.asm~     index.html.11  index.html.9    lab08_ex2.asm~
-[0m[01;32ma.out[0m*      [01;34mbin?[0m/          index.html.12  lab06_ex1.asm   lab09_ex1.asm
-assn1.asm   [01;35mcrack.jpeg[0m     index.html.2   lab06_ex1.asm~  lab09_ex1.asm~
-assn2.asm   dead.letter    index.html.3   lab06_ex2.asm   lab09_ex3.asm
-assn3.asm   [01;34mDesktop[0m/       index.html.4   lab07_ex1.asm   lab09_ex3.asm~
-assn4.asm   [01;34mDownloads[0m/     index.html.5   lab07_ex1.asm~  [01;34mrshell[0m/
-assn4.asm~  index.html     index.html.6   lab08_ex1.asm   [01;32msendspam.sh[0m*
-assn5.asm   index.html.1   index.html.7   lab08_ex1.asm~  [01;34mtemp[0m/
-assn6.asm   index.html.10  index.html.8   lab08_ex2.asm   [01;34mucr-cs100[0m/
-[m~
-htang014@hammer $ cd ucr[K[K[Krshell
+htang014@hammer $ cd rshell
 ~/rshell
 htang014@hammer $ make
 mkdir -p bin
@@ -22,256 +11,194 @@ g++ -ansi -pedantic -Wall -Werror src/rshell.cpp -o bin/rshell
 ~/rshell
 htang014@hammer $ bin/rshell
 ~/rshell
-htang014@hammer $ ls #real commands
-bin    input2	Makefile  output   output3    src	tests
-input  LICENSE	md	  output2  README.md  test.cpp
+htang014@hammer $ ls #command no params
+bin  LICENSE  Makefile	README.md  src	tests
 
 ~/rshell
-htang014@hammer $ pwd
-/class/classes/htang014/rshell
+htang014@hammer $ ls -a -l #command w/ params
+total 44
+drwx------  6 htang014 classes 4096 Jun  8 23:08 .
+drwx------ 28 htang014 classes 8192 Jun  8 23:57 ..
+drwx------  2 htang014 classes 4096 Jun  8 23:58 bin
+drwx------  8 htang014 classes 4096 Jun  8 23:46 .git
+-rw-------  1 htang014 classes 1076 Jun  8 23:07 LICENSE
+-rw-------  1 htang014 classes  262 Jun  8 23:07 Makefile
+-rw-------  1 htang014 classes 6411 Jun  8 23:07 README.md
+drwx------  2 htang014 classes 4096 Jun  8 23:57 src
+drwx------  2 htang014 classes 4096 Jun  8 23:58 tests
 
 ~/rshell
-htang014@hammer $ ps
+htang014@hammer $ ls -a -a -a -a -a -a -a -a -a -a -a -l #lots of parameters
+total 44
+drwx------  6 htang014 classes 4096 Jun  8 23:08 .
+drwx------ 28 htang014 classes 8192 Jun  8 23:57 ..
+drwx------  2 htang014 classes 4096 Jun  8 23:58 bin
+drwx------  8 htang014 classes 4096 Jun  8 23:46 .git
+-rw-------  1 htang014 classes 1076 Jun  8 23:07 LICENSE
+-rw-------  1 htang014 classes  262 Jun  8 23:07 Makefile
+-rw-------  1 htang014 classes 6411 Jun  8 23:07 README.md
+drwx------  2 htang014 classes 4096 Jun  8 23:57 src
+drwx------  2 htang014 classes 4096 Jun  8 23:58 tests
+
+~/rshell
+htang014@hammer $ ls && bin/rshell #/bin command w/ rshell command
+bin  LICENSE  Makefile	README.md  src	tests
+~/rshell
+htang014@hammer $ exit
+
+~/rshell
+htang014@hammer $ foo #error message on bad command
+There was an error with execvp(): No such file or directory
+
+~/rshell
+htang014@hammer $ ls   -a      -l #spaces between parameters
+total 44
+drwx------  6 htang014 classes 4096 Jun  8 23:08 .
+drwx------ 28 htang014 classes 8192 Jun  8 23:57 ..
+drwx------  2 htang014 classes 4096 Jun  8 23:58 bin
+drwx------  8 htang014 classes 4096 Jun  8 23:46 .git
+-rw-------  1 htang014 classes 1076 Jun  8 23:07 LICENSE
+-rw-------  1 htang014 classes  262 Jun  8 23:07 Makefile
+-rw-------  1 htang014 classes 6411 Jun  8 23:07 README.md
+drwx------  2 htang014 classes 4096 Jun  8 23:57 src
+drwx------  2 htang014 classes 4096 Jun  8 23:58 tests
+
+~/rshell
+htang014@hammer $ ls && ps #and connector success
+bin  LICENSE  Makefile	README.md  src	tests
   PID TTY          TIME CMD
-35324 pts/40   00:00:00 bash
-35370 pts/40   00:00:00 rshell
-35379 pts/40   00:00:00 ps
+27347 pts/54   00:00:00 bash
+27429 pts/54   00:00:00 rshell
+29206 pts/54   00:00:00 ps
 
 ~/rshell
-htang014@hammer $ foo #nonexistant aco   command
+htang014@hammer $ l foo && ps #and connector fail
 There was an error with execvp(): No such file or directory
 
 ~/rshell
-htang014@hammer $ ls && pwd #and connector
-bin    input2	Makefile  output   output3    src	tests
-input  LICENSE	md	  output2  README.md  test.cpp
-/class/classes/htang014/rshell
+htang014@hammer $ ls || ps #or connector success
+bin  LICENSE  Makefile	README.md  src	tests
 
 ~/rshell
-htang014@hammer $ foo && pwd
-There was an error with execvp(): No such file or directory
-
-~/rshell
-htang014@hammer $ pwd && foo
-/class/classes/htang014/rshell
-There was an error with execvp(): No such file or directory
-
-~/rshell
-htang014@hammer $ ls || pwd #or connector
-bin    input2	Makefile  output   output3    src	tests
-input  LICENSE	md	  output2  README.md  test.cpp
-
-~/rshell
-htang014@hammer $ foo || pwd
-There was an error with execvp(): No such file or directory
-/class/classes/htang014/rshell
-
-~/rshell
-htang014@hammer $ pwd || foo
-/class/classes/htang014/rshell
-
-~/rshell
-htang014@hammer $ ls ; pwd #break connector
-bin    input2	Makefile  output   output3    src	tests
-input  LICENSE	md	  output2  README.md  test.cpp
-/class/classes/htang014/rshell
-
-~/rshell
-htang014@hammer $ foo ; pwd
-There was an error with execvp(): No such file or directory
-/class/classes/htang014/rshell
-
-~/rshell
-htang014@hammer $ pwd ; foo
-/class/classes/htang014/rshell
-There was an error with execvp(): No such file or directory
-
-~/rshell
-htang014@hammer $    #empty spaces
-
-~/rshell
-htang014@hammer $ ls && pwd && ps #multiple connectors
-bin    input2	Makefile  output   output3    src	tests
-input  LICENSE	md	  output2  README.md  test.cpp
-/class/classes/htang014/rshell
-  PID TTY          TIME CMD
-35324 pts/40   00:00:00 bash
-35370 pts/40   00:00:00 rshell
-36943 pts/40   00:00:00 ps
-
-~/rshell
-htang014@hammer $ ls || pwd || ps
-bin    input2	Makefile  output   output3    src	tests
-input  LICENSE	md	  output2  README.md  test.cpp
-
-~/rshell
-htang014@hammer $ ls ; pwd ; ps
-bin    input2	Makefile  output   output3    src	tests
-input  LICENSE	md	  output2  README.md  test.cpp
-/class/classes/htang014/rshell
-  PID TTY          TIME CMD
-35324 pts/40   00:00:00 bash
-35370 pts/40   00:00:00 rshell
-36969 pts/40   00:00:00 ps
-
-~/rshell
-htang014@hammer $ ls && pwd || ps
-bin    input2	Makefile  output   output3    src	tests
-input  LICENSE	md	  output2  README.md  test.cpp
-/class/classes/htang014/rshell
-
-~/rshell
-htang014@hammer $ ls || pwd && ps
-bin    input2	Makefile  output   output3    src	tests
-input  LICENSE	md	  output2  README.md  test.cpp
-
-~/rshell
-htang014@hammer $ ls ; pwd && ps
-bin    input2	Makefile  output   output3    src	tests
-input  LICENSE	md	  output2  README.md  test.cpp
-/class/classes/htang014/rshell
-  PID TTY          TIME CMD
-35324 pts/40   00:00:00 bash
-35370 pts/40   00:00:00 rshell
-36998 pts/40   00:00:00 ps
-
-~/rshell
-htang014@hammer $ ls && foo && ps #multiple connectors and bad command
-bin    input2	Makefile  output   output3    src	tests
-input  LICENSE	md	  output2  README.md  test.cpp
-There was an error with execvp(): No such file or directory
-
-~/rshell
-htang014@hammer $ ls && foo || ps
-bin    input2	Makefile  output   output3    src	tests
-input  LICENSE	md	  output2  README.md  test.cpp
+htang014@hammer $ foo || ps #or connector fail
 There was an error with execvp(): No such file or directory
   PID TTY          TIME CMD
-35324 pts/40   00:00:00 bash
-35370 pts/40   00:00:00 rshell
-37176 pts/40   00:00:00 ps
+27347 pts/54   00:00:00 bash
+27429 pts/54   00:00:00 rshell
+29234 pts/54   00:00:00 ps
 
 ~/rshell
-htang014@hammer $ ls && foo ; ps
-bin    input2	Makefile  output   output3    src	tests
-input  LICENSE	md	  output2  README.md  test.cpp
+htang014@hammer $ ls ; ps #break connector success
+bin  LICENSE  Makefile	README.md  src	tests
+  PID TTY          TIME CMD
+27347 pts/54   00:00:00 bash
+27429 pts/54   00:00:00 rshell
+29244 pts/54   00:00:00 ps
+
+~/rshell
+htang014@hammer $ foo ; ps #break connector fail
 There was an error with execvp(): No such file or directory
   PID TTY          TIME CMD
-35324 pts/40   00:00:00 bash
-35370 pts/40   00:00:00 rshell
-38497 pts/40   00:00:00 ps
+27347 pts/54   00:00:00 bash
+27429 pts/54   00:00:00 rshell
+29258 pts/54   00:00:00 ps
 
 ~/rshell
-htang014@hammer $ ls && ps && pwd ; foo || ls #stress test
-bin    input2	Makefile  output   output3    src	tests
-input  LICENSE	md	  output2  README.md  test.cpp
+htang014@hammer $ ls && ps && ls && ps && ls #chaining
+bin  LICENSE  Makefile	README.md  src	tests
   PID TTY          TIME CMD
-35324 pts/40   00:00:00 bash
-35370 pts/40   00:00:00 rshell
-38517 pts/40   00:00:00 ps
+27347 pts/54   00:00:00 bash
+27429 pts/54   00:00:00 rshell
+29275 pts/54   00:00:00 ps
+bin  LICENSE  Makefile	README.md  src	tests
+  PID TTY          TIME CMD
+27347 pts/54   00:00:00 bash
+27429 pts/54   00:00:00 rshell
+29277 pts/54   00:00:00 ps
+bin  LICENSE  Makefile	README.md  src	tests
+
+~/rshell
+htang014@hammer $ ls && ls && ls && ls && ls && ls && ls #more chaining
+bin  LICENSE  Makefile	README.md  src	tests
+bin  LICENSE  Makefile	README.md  src	tests
+bin  LICENSE  Makefile	README.md  src	tests
+bin  LICENSE  Makefile	README.md  src	tests
+bin  LICENSE  Makefile	README.md  src	tests
+bin  LICENSE  Makefile	README.md  src	tests
+bin  LICENSE  Makefile	README.md  src	tests
+
+~/rshell
+htang014@hammer $ ls && ps || pwd #commands with mixed operators
+bin  LICENSE  Makefile	README.md  src	tests
+  PID TTY          TIME CMD
+27347 pts/54   00:00:00 bash
+27429 pts/54   00:00:00 rshell
+29355 pts/54   00:00:00 ps
+
+~/rshell
+htang014@hammer $ ls ; foo || ps && pwd
+bin  LICENSE  Makefile	README.md  src	tests
+There was an error with execvp(): No such file or directory
+  PID TTY          TIME CMD
+27347 pts/54   00:00:00 bash
+27429 pts/54   00:00:00 rshell
+29418 pts/54   00:00:00 ps
 /class/classes/htang014/rshell
-There was an error with execvp(): No such file or directory
-bin    input2	Makefile  output   output3    src	tests
-input  LICENSE	md	  output2  README.md  test.cpp
 
 ~/rshell
-htang014@hammer $ ls&&pwd&&ps ## no spaces
-bin    input2	Makefile  output   output3    src	tests
-input  LICENSE	md	  output2  README.md  test.cpp
-/class/classes/htang014/rshell
-  PID TTY          TIME CMD
-35324 pts/40   00:00:00 bash
-35370 pts/40   00:00:00 rshell
-38536 pts/40   00:00:00 ps
+htang014@hammer $ ; ls -l||cat #no spaces or empty argument on connector
+total 28
+drwx------ 2 htang014 classes 4096 Jun  8 23:58 bin
+-rw------- 1 htang014 classes 1076 Jun  8 23:07 LICENSE
+-rw------- 1 htang014 classes  262 Jun  8 23:07 Makefile
+-rw------- 1 htang014 classes 6411 Jun  8 23:07 README.md
+drwx------ 2 htang014 classes 4096 Jun  8 23:57 src
+drwx------ 2 htang014 classes 4096 Jun  8 23:58 tests
 
 ~/rshell
-htang014@hammer $ foo||bar||ps
-There was an error with execvp(): No such file or directory
-There was an error with execvp(): No such file or directory
-  PID TTY          TIME CMD
-35324 pts/40   00:00:00 bash
-35370 pts/40   00:00:00 rshell
-38617 pts/40   00:00:00 ps
+htang014@hammer $ exit #exit by itself
+~/rshell
+htang014@hammer $ bin/rshell
+~/rshell
+htang014@hammer $ exit -foo -bar #exit with parameters still works
+~/rshell
+htang014@hammer $ bin/rshell
+~/rshell
+htang014@hammer $ ls -l exit #exit as a param doesnt work
+ls: cannot access exit: No such file or directory
 
 ~/rshell
-htang014@hammer $ foo;ls;ps
-There was an error with execvp(): No such file or directory
-bin    input2	Makefile  output   output3    src	tests
-input  LICENSE	md	  output2  README.md  test.cpp
-  PID TTY          TIME CMD
-35324 pts/40   00:00:00 bash
-35370 pts/40   00:00:00 rshell
-38629 pts/40   00:00:00 ps
+htang014@hammer $ ls -l ; exit #exit in chain exits
+total 28
+drwx------ 2 htang014 classes 4096 Jun  8 23:58 bin
+-rw------- 1 htang014 classes 1076 Jun  8 23:07 LICENSE
+-rw------- 1 htang014 classes  262 Jun  8 23:07 Makefile
+-rw------- 1 htang014 classes 6411 Jun  8 23:07 README.md
+drwx------ 2 htang014 classes 4096 Jun  8 23:57 src
+drwx------ 2 htang014 classes 4096 Jun  8 23:58 tests
+~/rshell
+htang014@hammer $ bin/rshell
+~/rshell
+htang014@hammer $ ls -l #comment within command
+total 28
+drwx------ 2 htang014 classes 4096 Jun  8 23:58 bin
+-rw------- 1 htang014 classes 1076 Jun  8 23:07 LICENSE
+-rw------- 1 htang014 classes  262 Jun  8 23:07 Makefile
+-rw------- 1 htang014 classes 6411 Jun  8 23:07 README.md
+drwx------ 2 htang014 classes 4096 Jun  8 23:57 src
+drwx------ 2 htang014 classes 4096 Jun  8 23:58 tests
 
 ~/rshell
-htang014@hammer $ && #lone connector
-
+htang014@hammer $ #comment on empty line
 ~/rshell
-htang014@hammer $ &&ls #connectors with empty arguments
-bin    input2	Makefile  output   output3    src	tests
-input  LICENSE	md	  output2  README.md  test.cpp
-
-~/rshell
-htang014@hammer $ ||ls
-
-~/rshell
-htang014@hammer $ ;ls
-bin    input2	Makefile  output   output3    src	tests
-input  LICENSE	md	  output2  README.md  test.cpp
-
-~/rshell
-htang014@hammer $ ls&&
-bin    input2	Makefile  output   output3    src	tests
-input  LICENSE	md	  output2  README.md  test.cpp
-
-~/rshell
-htang014@hammer $ ls||
-bin    input2	Makefile  output   output3    src	tests
-input  LICENSE	md	  output2  README.md  test.cpp
-
-~/rshell
-htang014@hammer $ ls;
-bin    input2	Makefile  output   output3    src	tests
-input  LICENSE	md	  output2  README.md  test.cpp
-
-~/rshell
-htang014@hammer $ &&||; #spamming connectors
-
-~/rshell
-htang014@hammer $ &&&&&&&&
-
-~/rshell
-htang014@hammer $ ||||||||
-
-~/rshell
-htang014@hammer $ ;;;;
-
-~/rshell
-htang014@hammer $ #empty
-~/rshell
-htang014@hammer $ #ls #command in comment
-~/rshell
-htang014@hammer $ #########comment spam
-~/rshell
-htang014@hammer $ ls -al
-total 88
-drwx------  6 htang014 classes  4096 May 29 14:30 .
-drwx------ 28 htang014 classes  8192 Jun  8 22:01 ..
-drwx------  2 htang014 classes  4096 Jun  8 22:11 bin
-drwx------  8 htang014 classes  4096 Jun  8 22:09 .git
--rw-------  1 htang014 classes    84 May 16 01:35 input
--rw-------  1 htang014 classes    15 May 17 13:34 input2
--rw-------  1 htang014 classes  1076 May  1 23:06 LICENSE
--rw-------  1 htang014 classes   262 May  1 23:06 Makefile
--rw-------  1 htang014 classes 12655 May 17 19:49 md
--rw-------  1 htang014 classes    84 May 17 23:54 output
--rw-------  1 htang014 classes    84 May 17 19:44 output2
--rw-------  1 htang014 classes    84 May 17 19:44 output3
--rw-------  1 htang014 classes  6411 May 29 14:30 README.md
--rw-------  1 htang014 classes 12288 May 17 19:49 .README.swp
-drwx------  2 htang014 classes  4096 Jun  8 22:01 src
--rw-------  1 htang014 classes    58 May 17 14:03 test.cpp
-drwx------  2 htang014 classes  4096 Jun  8 22:11 tests
+htang014@hammer $ ls -l#comment touching a command
+total 28
+drwx------ 2 htang014 classes 4096 Jun  8 23:58 bin
+-rw------- 1 htang014 classes 1076 Jun  8 23:07 LICENSE
+-rw------- 1 htang014 classes  262 Jun  8 23:07 Makefile
+-rw------- 1 htang014 classes 6411 Jun  8 23:07 README.md
+drwx------ 2 htang014 classes 4096 Jun  8 23:57 src
+drwx------ 2 htang014 classes 4096 Jun  8 23:58 tests
 
 ~/rshell
 htang014@hammer $ exit
@@ -279,4 +206,4 @@ htang014@hammer $ exit
 htang014@hammer $ exit
 exit
 
-Script done on Mon 08 Jun 2015 10:26:11 PM PDT
+Script done on Tue 09 Jun 2015 12:13:15 AM PDT

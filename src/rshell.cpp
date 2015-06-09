@@ -325,12 +325,12 @@ void changeDir (string a){
 }
 //------------------------------------------------------------
 int doExec(vector<char*> instr){
+	if (instr.empty())
+		return 0;
+
 	string firstStr = instr.at(0);
 	if (firstStr == "exit")
 		return -10;
-
-	if (instr.empty())
-		return 0;
 
 	string IN = "<";
 	string IN2 = "<<<";
