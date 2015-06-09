@@ -325,6 +325,9 @@ void changeDir (string a){
 }
 //------------------------------------------------------------
 int doExec(vector<char*> instr){
+	string firstStr = instr.at(0);
+	if (firstStr == "exit")
+		return -10;
 
 	if (instr.empty())
 		return 0;
@@ -576,8 +579,18 @@ void doLogic (vector<char*> a){
 	char END[2] = ";";
 
 	while (cmd.size() > 1){
+		
 		if (strcmp(cmd.at(0),OR) == 0){
 			int status = doExec(segment);
+			if (status == -10){
+
+				for (unsigned i = 0; i< a.size(); i++){
+					if (a.at(i) != NULL)
+						delete[] a.at(i);
+				}
+			 	exit(0);	
+
+			}
 			segment.clear();
 			if (status == 0){
 
@@ -590,6 +603,16 @@ void doLogic (vector<char*> a){
 		}
 		else if (strcmp(cmd.at(0), AND) == 0){
 			int status = doExec(segment);
+			if (status == -10){
+
+				for (unsigned i = 0; i< a.size(); i++){
+					if (a.at(i) != NULL)
+						delete[] a.at(i);
+				}
+			 	exit(0);	
+
+			}
+
 			segment.clear();
 			if (status != 0){
 
@@ -602,7 +625,17 @@ void doLogic (vector<char*> a){
 			}
 		}
 		else if (strcmp(cmd.at(0), END) == 0){
-			doExec(segment);
+			int status = doExec(segment);
+			if (status == -10){
+
+				for (unsigned i = 0; i< a.size(); i++){
+					if (a.at(i) != NULL)
+						delete[] a.at(i);
+				}
+			 	exit(0);	
+
+			}
+
 			segment.clear();
 		}
 		else {
@@ -610,7 +643,17 @@ void doLogic (vector<char*> a){
 		}
 		cmd.erase(cmd.begin());
 	}
-	doExec(segment);
+	int finalStatus = doExec(segment);
+	if (finalStatus == -10){
+
+		for (unsigned i = 0; i< a.size(); i++){
+			if (a.at(i) != NULL)
+				delete[] a.at(i);
+			}
+		 	exit(0);	
+
+	}
+
 
 	for (unsigned i = 0; i< a.size(); i++){
 		if (a.at(i) != NULL)
