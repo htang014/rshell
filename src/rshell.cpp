@@ -615,6 +615,7 @@ vector<char*> str_parse(string str){
 	//parse from command string
 	while(!inSS.eof()){
 		inSS >> arg;
+		if (arg.empty()) break;	
 		argList.push_back(arg);
 	}
 
@@ -689,10 +690,10 @@ int main () {
 		cin.clear();
 		getline(cin, cmd);
 
-		if (cmd.empty())
-			continue;
-		
 		commentOut(cmd);
+
+		if (cmd.empty())
+			continue;	
 
 		//check for connectors; if found place spaces before and after for better parsing
 		for (unsigned i = 0; i < cmd.length(); i++){
